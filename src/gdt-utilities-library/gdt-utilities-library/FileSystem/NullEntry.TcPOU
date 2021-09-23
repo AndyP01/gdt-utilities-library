@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="NullEntry" Id="{dab7c663-100f-4da6-b5ad-a2455b58ddfb}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK PUBLIC NullEntry EXTENDS FileSystemEntry IMPLEMENTS I_NullEntry
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="IsNull" Id="{99f7d355-bb3c-46b3-8bdf-024693cad850}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsNull : BOOL]]></Declaration>
+      <Get Name="Get" Id="{7356c8d2-f8db-4737-ab2e-ec93d8f68b71}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsNull := TRUE;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="NullEntry">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="NullEntry.IsNull.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

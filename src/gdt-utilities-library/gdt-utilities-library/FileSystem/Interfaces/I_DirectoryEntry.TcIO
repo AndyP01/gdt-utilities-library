@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <Itf Name="I_DirectoryEntry" Id="{0f93bcd3-411b-4626-9e13-8828c5f6c9df}">
+    <Declaration><![CDATA[INTERFACE I_DirectoryEntry EXTENDS I_FileSystemEntry 
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

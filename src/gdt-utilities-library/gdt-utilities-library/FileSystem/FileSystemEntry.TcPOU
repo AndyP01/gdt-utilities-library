@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FileSystemEntry" Id="{88d5ad2d-c055-4393-82a7-d01f5d3379eb}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'enable_dynamic_creation'}
+{attribute 'no_explicit_call' := 'do not call this FB directly'}
+FUNCTION_BLOCK PUBLIC ABSTRACT FileSystemEntry IMPLEMENTS I_FileSystemEntry, I_Disposable
+VAR
+	_path : T_MaxString;	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{700ef6a9-b5fe-4af4-b7d6-effcf0a5f087}" />
+    <Method Name="Dispose" Id="{a35e5125-c9c9-47fb-b996-f8c06aa27213}">
+      <Declaration><![CDATA[METHOD Dispose
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[__DELETE(THIS);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{ba74ccb0-59d7-475b-b89b-2bd4ca370d16}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	Path : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^._path := Path;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="IsDirectory" Id="{9103648a-0894-4df3-96d0-863e5ce067d1}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsDirectory : BOOL]]></Declaration>
+      <Get Name="Get" Id="{fd87137c-f12a-4725-a347-fe3049c677a1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsDirectory := FALSE;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsFile" Id="{6320f1ff-661e-46b3-b17c-fb38add9c551}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsFile : BOOL]]></Declaration>
+      <Get Name="Get" Id="{f18eea18-e04f-41a1-a648-f4fc3a36c1a1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsFile := FALSE;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsNull" Id="{47d25653-6e57-40d0-b86d-f3316f0cf71d}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsNull : BOOL]]></Declaration>
+      <Get Name="Get" Id="{108520d4-36ce-4c13-bc0f-19dd17918fc0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsNull := FALSE;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Path" Id="{0c75e418-fa36-4cba-8aca-9011fc540de4}">
+      <Declaration><![CDATA[PROPERTY Path : T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{3122b97c-7417-4d2b-a123-627a45757fa4}">
+        <Declaration><![CDATA[
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Path := _path;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="FileSystemEntry">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntry.Dispose">
+      <LineId Id="7" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntry.FB_init">
+      <LineId Id="7" Count="0" />
+      <LineId Id="11" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntry.IsDirectory.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntry.IsFile.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntry.IsNull.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntry.Path.Get">
+      <LineId Id="2" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

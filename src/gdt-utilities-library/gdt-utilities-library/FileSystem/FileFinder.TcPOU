@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FileFinder" Id="{7ae37c03-cd82-482d-8069-507c0dbb36f3}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'enable_dynamic_creation'}
+{attribute 'no_explicit_call' := 'do not call this FB directly'}
+FUNCTION_BLOCK PUBLIC FileFinder IMPLEMENTS I_FileFinder, I_Disposable
+VAR
+	fileCollection : I_FileSystemEntryCollection;
+	status : (INIT, FIRST_READ, NEXT_READ, WAITING_FOR_NOT_BUSY, CHECK_EOE, PROCESS_FOUND_ENTRY, FOUND_DIRECTORY, FOUND_FILE, FINISHED) := INIT;
+	searchDir: T_MaxString;	
+	searchPath : T_MaxString;
+	fileExt : STRING;
+	fbFindFileEntry : FB_EnumFindFileEntry;
+	recursiveFileFinder : POINTER TO FileFinder;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Private" Id="{901aeac1-6b7d-4919-94a1-c714f2a47ed6}" />
+    <Method Name="AddNewFileEntryToCollection" Id="{06392cf5-204a-423e-a7bb-d64aba0e4ddd}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE AddNewFileEntryToCollection
+VAR_INPUT
+	FileEntryData : ST_FindFileEntry;
+END_VAR
+VAR
+	fileEntry : POINTER TO FileEntry;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fileEntry := __NEW(FileEntry(Path:=searchDir, Name:=FileEntryData.sFileName));
+fileCollection.Insert(fileEntry^);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Dispose" Id="{7261b60b-c1de-44b6-8d60-3f46a9104264}">
+      <Declaration><![CDATA[METHOD Dispose
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[__DELETE(THIS);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{9d371c55-6310-4e8e-8585-2e20aad5e78d}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	FileCollection : I_FileSystemEntryCollection;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.fileCollection := FileCollection;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Find" Id="{d08b7188-a356-44e3-9d70-4e2a94161fb2}">
+      <Declaration><![CDATA[METHOD Find : BOOL;
+VAR_INPUT
+	SearchDirectory : T_MaxString;
+	FileExtension : STRING;
+END_VAR
+VAR
+	newSearchDir : T_MaxString;
+	fileEntry : ST_FindFileEntry;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE status OF
+	
+	INIT:
+		searchDir := SearchDirectory;
+		fileExt := FileExtension;
+		searchPath := CONCAT(searchDir, '*');
+		
+		fbFindFileEntry(
+			bExecute:=FALSE,
+			sNetId:='',
+			sPathName:=searchPath,
+			tTimeout:=DEFAULT_ADS_TIMEOUT
+		);
+		
+		status := FIRST_READ;
+		
+	FIRST_READ:
+		fbFindFileEntry(
+			eCmd:=E_EnumCmdType.eEnumCmd_First,
+			bExecute:=TRUE,	
+		);
+		
+		status := WAITING_FOR_NOT_BUSY;
+	
+	NEXT_READ:
+		fbFindFileEntry(
+			eCmd:=E_EnumCmdType.eEnumCmd_Next,
+			bExecute:=TRUE
+		);
+		
+		status := WAITING_FOR_NOT_BUSY;
+	
+	WAITING_FOR_NOT_BUSY: 
+		fbFindFileEntry(bExecute:=FALSE);
+		IF NOT fbFindFileEntry.bBusy THEN
+			status := CHECK_EOE;
+		END_IF
+
+	CHECK_EOE: 
+		IF fbFindFileEntry.bEOE THEN
+			status := FINISHED;
+			RETURN;
+		END_IF
+		
+		status := PROCESS_FOUND_ENTRY;
+		
+	PROCESS_FOUND_ENTRY:
+		IF fbFindFileEntry.stFindFile.fileAttributes.bDirectory THEN
+			status := FOUND_DIRECTORY;
+			RETURN;
+		END_IF
+		
+		status := FOUND_FILE;
+		
+	FOUND_DIRECTORY:
+		IF (fbFindFileEntry.stFindFile.sFileName = '.') OR (fbFindFileEntry.stFindFile.sFileName = '..') THEN
+			status := NEXT_READ;
+			RETURN;
+		END_IF
+			
+		IF (recursiveFileFinder = 0) THEN				
+			recursiveFileFinder := __NEW(FileFinder(FileCollection := THIS^.fileCollection));
+			newSearchDir := CONCAT(searchDir, fbFindFileEntry.stFindFile.sFileName); // sFileName is the name of the directory just found.
+			newSearchDir := CONCAT(newSearchDir, '\');
+		END_IF
+
+		IF (recursiveFileFinder^.Find(newSearchDir, fileExt)) THEN // find files in sub-directory.
+			recursiveFileFinder^.Dispose();
+			recursiveFileFinder := 0;
+			status := NEXT_READ;
+		END_IF
+
+	FOUND_FILE:
+		IF IsMatchingFileExtension(fbFindFileEntry.stFindFile.sFileName, fileExt) THEN
+			ADSLOGSTR(ADSLOG_MSGTYPE_STRING, 'Search directory : %s', searchDir);
+			ADSLOGSTR(ADSLOG_MSGTYPE_STRING, '    - File found : %s', fbFindFileEntry.stFindFile.sFileName);
+			AddNewFileEntryToCollection(fbFindFileEntry.stFindFile);
+		END_IF
+		
+		status := NEXT_READ;
+	
+	FINISHED:
+		Find := TRUE;
+		status := INIT;
+		RETURN;
+	
+END_CASE
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetFileExtension" Id="{ec9e558d-ad22-43fa-927d-a48c386c4531}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE GetFileExtension : STRING
+VAR_INPUT
+	In : STRING;
+END_VAR
+VAR
+	length : INT;
+	position : INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[length := Tc2_Standard.LEN(In);
+position := Tc2_Standard.FIND(In, '.');
+
+GetFileExtension := Tc2_Standard.RIGHT(In, (length - position) + 1);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsMatchingFileExtension" Id="{d091fd4f-bfcb-47e0-b9e6-df77b7374b88}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE IsMatchingFileExtension : BOOL
+VAR_INPUT
+	In : STRING;
+	Extension : STRING;
+END_VAR
+VAR
+	extension1 : STRING;
+	extension2 : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[extension1 := GetFileExtension(In);
+extension2 := GetFileExtension(Extension);
+
+IsMatchingFileExtension := (extension1 = extension2);
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FileFinder">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FileFinder.AddNewFileEntryToCollection">
+      <LineId Id="5" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FileFinder.Dispose">
+      <LineId Id="7" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FileFinder.FB_init">
+      <LineId Id="26" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FileFinder.Find">
+      <LineId Id="1032" Count="86" />
+      <LineId Id="270" Count="0" />
+    </LineIds>
+    <LineIds Name="FileFinder.GetFileExtension">
+      <LineId Id="6" Count="3" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FileFinder.IsMatchingFileExtension">
+      <LineId Id="38" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="42" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

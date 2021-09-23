@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="MAIN" Id="{ec38523b-9156-4770-8e81-c6221898da8f}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	state : (IDLE, FIND_FILES, GET_FILES, DONE) := IDLE;
+	
+	fileCollection : FileSystemEntryCollection;
+	fileFinder : FileFinder(fileCollection);
+	searchPath : T_MaxString := 'C:\dev\vision-toolkit\test\integration\';
+	fileSystemEntry : I_FileSystemEntry;
+	path : T_MaxString;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// find files in supplied initial folder & sub-folders and populate a collection.
+
+CASE state OF 
+	
+	IDLE : //
+	
+	FIND_FILES:
+	
+		IF (fileFinder.Find(searchPath, '*.tcgraph')) THEN
+			state := GET_FILES;
+			
+		END_IF
+	
+	GET_FILES:
+	
+		fileSystemEntry := fileCollection.GetFirst();
+		WHILE (NOT fileSystemEntry.IsNull) DO
+
+			path := fileSystemEntry.Path;
+			fileSystemEntry := fileCollection.GetNext(fileSystemEntry);
+			
+		END_WHILE
+		fileCollection.Clear();
+		
+		state := DONE;
+		
+	DONE: //
+	
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="449" Count="0" />
+      <LineId Id="477" Count="0" />
+      <LineId Id="476" Count="0" />
+      <LineId Id="490" Count="0" />
+      <LineId Id="478" Count="0" />
+      <LineId Id="489" Count="0" />
+      <LineId Id="480" Count="0" />
+      <LineId Id="483" Count="0" />
+      <LineId Id="485" Count="1" />
+      <LineId Id="517" Count="0" />
+      <LineId Id="484" Count="0" />
+      <LineId Id="488" Count="0" />
+      <LineId Id="482" Count="0" />
+      <LineId Id="500" Count="0" />
+      <LineId Id="518" Count="0" />
+      <LineId Id="493" Count="0" />
+      <LineId Id="495" Count="0" />
+      <LineId Id="498" Count="0" />
+      <LineId Id="519" Count="1" />
+      <LineId Id="499" Count="0" />
+      <LineId Id="491" Count="0" />
+      <LineId Id="501" Count="2" />
+      <LineId Id="492" Count="0" />
+      <LineId Id="504" Count="0" />
+      <LineId Id="311" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

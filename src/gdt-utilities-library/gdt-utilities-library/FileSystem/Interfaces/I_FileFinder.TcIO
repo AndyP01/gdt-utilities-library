@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <Itf Name="I_FileFinder" Id="{73be18f7-a4ad-4de2-a855-53f4ba6b8273}">
+    <Declaration><![CDATA[INTERFACE I_FileFinder EXTENDS __SYSTEM.IQueryInterface 
+]]></Declaration>
+    <Method Name="Find" Id="{700e0810-b935-4015-aa88-7c7d02ab9009}">
+      <Declaration><![CDATA[METHOD Find : BOOL;
+VAR_INPUT
+	SearchDirectory : T_MaxString;
+	FileExtension : STRING;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

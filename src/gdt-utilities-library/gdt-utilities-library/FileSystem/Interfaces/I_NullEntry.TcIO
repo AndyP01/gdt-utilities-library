@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <Itf Name="I_NullEntry" Id="{183f6e87-ae3c-49de-97ef-7d2b9df21cdd}">
+    <Declaration><![CDATA[INTERFACE I_NullEntry EXTENDS I_FileSystemEntry 
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

@@ -1,0 +1,123 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <FileVersion>1.0.0.0</FileVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{33290d92-9416-4bbe-8541-2246dd368785}</ProjectGuid>
+    <SubObjectsSortedByName>True</SubObjectsSortedByName>
+    <DownloadApplicationInfo>true</DownloadApplicationInfo>
+    <WriteProductVersion>true</WriteProductVersion>
+    <GenerateTpy>false</GenerateTpy>
+    <Name>gdt_utilities_library</Name>
+    <ProgramVersion>3.1.4023.0</ProgramVersion>
+    <Application>{475867ee-f623-4e42-b6ab-f8935c3cf142}</Application>
+    <TypeSystem>{1f97e879-02ac-4bbd-bf92-35683189dfe1}</TypeSystem>
+    <Implicit_Task_Info>{33b8652c-6e9e-4b00-9edb-edfacd384e1b}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{3aa4a3d3-cae7-47b0-9994-6693e1f6f70e}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{27ab90f2-7aec-4b3b-839d-e8c5743f343a}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{2a1aa3ae-1447-4143-8c98-b529ce8e520c}</LibraryReferences>
+    <Company>Beckhoff Automation</Company>
+    <Released>false</Released>
+    <ProjectVersion>0.1.0.0</ProjectVersion>
+    <Author>GDT</Author>
+    <Description>Graph Development Team utilities library.</Description>
+    <Title>
+    </Title>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="FileSystem\DirectoryEntry.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FileSystem\FileEntry.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FileSystem\FileFinder.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FileSystem\FileSystemEntry.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FileSystem\FileSystemEntryCollection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FileSystem\Interfaces\I_DirectoryEntry.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FileSystem\Interfaces\I_FileEntry.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FileSystem\Interfaces\I_FileFinder.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FileSystem\Interfaces\I_FileSystemEntry.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FileSystem\Interfaces\I_FileSystemEntryCollection.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FileSystem\Interfaces\I_NullEntry.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FileSystem\NullEntry.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="General\I_Disposable.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global_Version.TcGVL">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POU\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderReference Include="Tc2_Standard">
+      <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Standard</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_System">
+      <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_System</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Utilities">
+      <DefaultResolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Utilities</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_Module">
+      <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_Module</Namespace>
+    </PlaceholderReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="gdt-utilities-library.tmc">
+      <SubType>Content</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FileSystem\Interfaces" />
+    <Folder Include="General" />
+    <Folder Include="FileSystem" />
+    <Folder Include="POU" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <PlcProjectOptions>
+      <XmlArchive>
+  <Data>
+    <o xml:space="preserve" t="OptionKey">
+      <v n="Name">"&lt;ProjectRoot&gt;"</v>
+      <d n="SubKeys" t="Hashtable" />
+      <d n="Values" t="Hashtable" />
+    </o>
+  </Data>
+  <TypeList>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive>
+    </PlcProjectOptions>
+  </ProjectExtensions>
+</Project>

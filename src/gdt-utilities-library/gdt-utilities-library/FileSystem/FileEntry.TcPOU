@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FileEntry" Id="{2d354d0c-5b37-4387-b88a-8916d5810531}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'enable_dynamic_creation'}
+{attribute 'no_explicit_call' := 'do not call this FB directly'}
+FUNCTION_BLOCK PUBLIC FileEntry EXTENDS FileSystemEntry IMPLEMENTS I_FileEntry
+VAR	
+	_name : T_MaxString;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Constructor" Id="{ae4d46b4-5374-4aa2-831e-ccf5bdf63bf8}" />
+    <Method Name="FB_init" Id="{5bb46322-f6e4-4e47-ae98-4856388d9411}" FolderPath="Constructor\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	Path : T_MaxString;
+	Name : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.FB_init(bInitRetains,bInCopyCode,Path);
+THIS^._name := Name;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetFullPath" Id="{86dfb3ba-2ac4-453b-9589-99870abc7f47}">
+      <Declaration><![CDATA[METHOD GetFullPath : T_MaxString
+VAR
+	dir : T_MaxString;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[dir := CONCAT(dir, Path);
+dir := CONCAT(dir, Name);
+
+GetFullPath := dir;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="IsFile" Id="{33e44ebc-1a90-4c27-b7ae-5c4ddac8c9bf}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsFile : BOOL]]></Declaration>
+      <Get Name="Get" Id="{ae20e2e8-62bb-4a05-903f-7804483bda5f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsFile := TRUE;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Name" Id="{98db7d2a-7a90-4828-a6fa-6391ab557d8f}">
+      <Declaration><![CDATA[PROPERTY Name : T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{306ee5b5-bc75-4317-b5d1-9a0654270ce7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Name := _name;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{add0cd59-73db-4c0d-8b1d-42544f91ba8c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_name := Name;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <LineIds Name="FileEntry">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FileEntry.FB_init">
+      <LineId Id="7" Count="0" />
+      <LineId Id="10" Count="0" />
+    </LineIds>
+    <LineIds Name="FileEntry.GetFullPath">
+      <LineId Id="7" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="11" Count="0" />
+    </LineIds>
+    <LineIds Name="FileEntry.IsFile.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="FileEntry.Name.Get">
+      <LineId Id="2" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FileEntry.Name.Set">
+      <LineId Id="2" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <Itf Name="I_FileSystemEntry" Id="{66833fc6-b602-49c7-acc3-7bfa91f32bf6}">
+    <Declaration><![CDATA[INTERFACE I_FileSystemEntry EXTENDS __SYSTEM.IQueryInterface 
+]]></Declaration>
+    <Property Name="IsDirectory" Id="{22c81b53-bc65-4de3-b099-f048eca9fcc7}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsDirectory : BOOL]]></Declaration>
+      <Get Name="Get" Id="{8ce22853-8680-4574-a632-67e46c1ed9a5}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsFile" Id="{bf38604d-52f0-458b-a7f2-d8a5608712aa}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsFile : BOOL]]></Declaration>
+      <Get Name="Get" Id="{eab15ada-a806-4d60-b471-b358888d1f84}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="IsNull" Id="{c7eee129-cfee-4483-ae7c-c99f573df8f7}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsNull : BOOL]]></Declaration>
+      <Get Name="Get" Id="{27584e77-09aa-4822-9bee-d1c2a73e8907}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Path" Id="{e3b1661e-05ad-42dc-91f1-d2ef8175dc30}">
+      <Declaration><![CDATA[PROPERTY Path : T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{a24a2121-dcb9-4ef0-94ed-6232fa627818}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

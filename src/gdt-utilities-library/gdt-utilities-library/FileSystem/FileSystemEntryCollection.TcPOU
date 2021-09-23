@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FileSystemEntryCollection" Id="{49c9c029-3eeb-4573-867b-19af0dafd403}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC FileSystemEntryCollection IMPLEMENTS I_FileSystemEntryCollection 
+VAR
+	entries : ARRAY[0..99] OF I_FileSystemEntry;
+	currentIndex : INT := EMPTY;
+	NullEntry : NullEntry(Path:='');
+END_VAR
+VAR CONSTANT
+	EMPTY : INT :=  -1;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Private" Id="{082e35bb-5195-44b3-bc99-e016d6b2e0d8}" />
+    <Method Name="Clear" Id="{a224ce7d-bcaf-423b-b0e7-f06a8769b3c5}">
+      <Declaration><![CDATA[METHOD Clear
+VAR
+	i : INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i := 0 TO currentIndex DO
+	DisposeEntry(entries[i]);
+	entries[i] := 0;
+END_FOR
+
+THIS^.currentIndex := EMPTY;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Count" Id="{e59573c1-3063-4ab4-8ae8-0e5af34953b5}">
+      <Declaration><![CDATA[PROPERTY Count : UDINT
+]]></Declaration>
+      <Get Name="Get" Id="{3d15a0d4-e7a4-47c2-9929-06234fd411a7}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Count := currentIndex + 1;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="DisposeEntry" Id="{ec2f6e2f-f7cf-4099-b4eb-49f00a455dbc}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE DisposeEntry
+VAR_INPUT
+	Entry : I_FileSystemEntry;
+END_VAR
+VAR
+	disposable : I_Disposable;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF __QUERYINTERFACE(Entry, disposable) THEN
+	disposable.Dispose();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_exit" Id="{21753a44-e4f1-40cd-b64e-f1b07dfc35af}">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Clear();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetFirst" Id="{2b71e296-9901-4c08-a631-7758f9f4b506}">
+      <Declaration><![CDATA[METHOD GetFirst : I_FileSystemEntry
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT (Count > 0) THEN
+	GetFirst := NullEntry;
+	RETURN;
+END_IF
+
+GetFirst := entries[0];
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetNext" Id="{67c41f2a-0b1a-43cb-bd0a-d6aac499ca99}">
+      <Declaration><![CDATA[METHOD GetNext : I_FileSystemEntry
+VAR_INPUT
+	Entry : I_FileSystemEntry;
+END_VAR
+VAR
+	i : INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Count = 0 THEN
+	GetNext := NullEntry;
+	RETURN;
+END_IF
+
+IF Entry = 0 THEN
+	GetNext := GetFirst();
+	RETURN;
+END_IF
+
+IF Entry = entries[currentIndex] THEN
+	GetNext := NullEntry;
+	RETURN;
+END_IF
+
+FOR i := 0 TO currentIndex DO
+	IF entries[i] = Entry THEN
+		GetNext := entries[i+1];
+		RETURN;
+	END_IF
+END_FOR
+
+GetNext := NullEntry;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Insert" Id="{ba078abe-d739-48b8-8a39-755b79a391ec}">
+      <Declaration><![CDATA[METHOD Insert
+VAR_INPUT
+	Entry : I_FileSystemEntry;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (currentIndex < 99) THEN
+	currentIndex := currentIndex + 1;
+	entries[currentIndex] := Entry;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FileSystemEntryCollection">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntryCollection.Clear">
+      <LineId Id="28" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="4" Count="0" />
+      <LineId Id="6" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntryCollection.Count.Get">
+      <LineId Id="2" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntryCollection.DisposeEntry">
+      <LineId Id="6" Count="1" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntryCollection.FB_exit">
+      <LineId Id="6" Count="1" />
+    </LineIds>
+    <LineIds Name="FileSystemEntryCollection.GetFirst">
+      <LineId Id="5" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="8" Count="1" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="4" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntryCollection.GetNext">
+      <LineId Id="30" Count="0" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="31" Count="17" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="58" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntryCollection.Insert">
+      <LineId Id="17" Count="2" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

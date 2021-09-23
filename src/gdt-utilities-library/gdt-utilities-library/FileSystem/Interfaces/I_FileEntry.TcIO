@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <Itf Name="I_FileEntry" Id="{d7cea8c2-6a4b-46b6-9174-113c9c1fd3ed}">
+    <Declaration><![CDATA[INTERFACE I_FileEntry EXTENDS I_FileSystemEntry
+]]></Declaration>
+    <Method Name="GetFullPath" Id="{3cfc7bf9-df3b-45bc-8547-790878e96580}">
+      <Declaration><![CDATA[METHOD GetFullPath : T_MaxString
+]]></Declaration>
+    </Method>
+    <Property Name="Name" Id="{745f4ffb-0dba-459f-be06-2210af6ff534}">
+      <Declaration><![CDATA[PROPERTY Name : T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{a15d2642-d8bc-49c8-8f18-76d76e363704}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{0a4169c3-1e37-4f46-97b1-61770d525342}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+  </Itf>
+</TcPlcObject>

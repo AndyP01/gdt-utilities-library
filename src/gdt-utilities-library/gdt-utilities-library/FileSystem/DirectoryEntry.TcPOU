@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="DirectoryEntry" Id="{41f8ec17-6d67-40fc-801c-f71f51d87d59}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'enable_dynamic_creation'}
+{attribute 'no_explicit_call' := 'do not call this FB directly'}
+FUNCTION_BLOCK PUBLIC DirectoryEntry EXTENDS FileSystemEntry IMPLEMENTS I_DirectoryEntry
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="IsDirectory" Id="{8bc2465d-80f6-4f35-99d3-38286b545c90}">
+      <Declaration><![CDATA[PROPERTY PUBLIC IsDirectory : BOOL]]></Declaration>
+      <Get Name="Get" Id="{6ed72c3e-b222-4fef-830b-c3836eee6ac4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsDirectory := TRUE;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Path" Id="{3c9f731c-b965-4c65-9974-4eb7136a1d37}">
+      <Declaration><![CDATA[PROPERTY Path : T_MaxString]]></Declaration>
+      <Get Name="Get" Id="{9218161d-0e1f-4a50-82b6-bb6f031cf8de}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF (RIGHT(SUPER^.Path, 1) <> '\') THEN
+	Path := CONCAT(SUPER^.Path, '\');
+END_IF]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="DirectoryEntry">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="DirectoryEntry.IsDirectory.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="DirectoryEntry.Path.Get">
+      <LineId Id="5" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
