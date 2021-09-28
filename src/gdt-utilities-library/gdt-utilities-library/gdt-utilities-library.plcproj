@@ -24,54 +24,83 @@
     </Title>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="FileSystem\DirectoryEntry.TcPOU">
+    <Compile Include="DataTypes\FileSystem\FileExtension.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FileSystem\FileEntry.TcPOU">
+    <Compile Include="DataTypes\FileSystem\FilePath.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FileSystem\FileFinder.TcPOU">
+    <Compile Include="DataTypes\FileSystem\FileName.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FileSystem\FileSystemEntry.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FileSystem\FileSystemEntryCollection.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FileSystem\Interfaces\I_DirectoryEntry.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FileSystem\Interfaces\I_FileEntry.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FileSystem\Interfaces\I_FileFinder.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FileSystem\Interfaces\I_FileSystemEntry.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FileSystem\Interfaces\I_FileSystemEntryCollection.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FileSystem\Interfaces\I_NullEntry.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FileSystem\NullEntry.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="General\I_Disposable.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Global_Version.TcGVL">
+    <Compile Include="MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POU\MAIN.TcPOU">
+    <Compile Include="POUs\FileSystem\DirectoryEntry.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FileSystem\FileEntry.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\FileFinder.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\FileSystemEntry.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\FileSystemEntryCollection.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\Interfaces\I_DirectoryEntry.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\Interfaces\I_FileEntry.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\Interfaces\I_FileFinder.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\Interfaces\I_FileSystemEntry.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\Interfaces\I_FileSystemEntryCollection.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\Interfaces\I_NullEntry.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\NullEntry.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\General\Functions\LongStringLen.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\General\Interfaces\I_Disposable.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Version\Global_Version.TcGVL">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="gdt-utilities-library.tmc">
+      <SubType>Content</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataTypes\FileSystem" />
+    <Folder Include="DataTypes" />
+    <Folder Include="GlobalVariables" />
+    <Folder Include="POUs" />
+    <Folder Include="POUs\FileSystem" />
+    <Folder Include="POUs\FileSystem\Interfaces" />
+    <Folder Include="POUs\General" />
+    <Folder Include="POUs\General\Functions" />
+    <Folder Include="POUs\General\Interfaces" />
+    <Folder Include="Version" />
   </ItemGroup>
   <ItemGroup>
     <PlaceholderReference Include="Tc2_Standard">
@@ -91,33 +120,22 @@
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="gdt-utilities-library.tmc">
-      <SubType>Content</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FileSystem\Interfaces" />
-    <Folder Include="General" />
-    <Folder Include="FileSystem" />
-    <Folder Include="POU" />
-  </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-  <Data>
-    <o xml:space="preserve" t="OptionKey">
+        <Data>
+          <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" />
       <d n="Values" t="Hashtable" />
     </o>
-  </Data>
-  <TypeList>
-    <Type n="Hashtable">System.Collections.Hashtable</Type>
-    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-    <Type n="String">System.String</Type>
-  </TypeList>
-</XmlArchive>
+        </Data>
+        <TypeList>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+          <Type n="String">System.String</Type>
+        </TypeList>
+      </XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

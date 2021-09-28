@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="LongStringLen" Id="{e1777e7c-a125-439a-acdf-af343a627130}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION LongStringLen : UDINT
+VAR_INPUT
+	In : ANY_STRING;
+END_VAR
+VAR
+	i : UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT In.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_STRING THEN
+	RETURN;
+END_IF
+
+WHILE (In.pValue[i] <> 0) DO
+	i := i+1;
+END_WHILE
+
+LongStringLen := i;
+]]></ST>
+    </Implementation>
+    <LineIds Name="LongStringLen">
+      <LineId Id="14" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="18" Count="2" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="24" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

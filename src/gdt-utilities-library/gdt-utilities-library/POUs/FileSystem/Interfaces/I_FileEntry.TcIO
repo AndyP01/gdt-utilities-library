@@ -8,8 +8,7 @@
 ]]></Declaration>
     </Method>
     <Property Name="Name" Id="{745f4ffb-0dba-459f-be06-2210af6ff534}">
-      <Declaration><![CDATA[PROPERTY Name : T_MaxString
-]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Name : FileName]]></Declaration>
       <Get Name="Get" Id="{a15d2642-d8bc-49c8-8f18-76d76e363704}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>

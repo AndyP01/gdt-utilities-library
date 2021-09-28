@@ -5,7 +5,7 @@
 {attribute 'no_explicit_call' := 'do not call this FB directly'}
 FUNCTION_BLOCK PUBLIC FileEntry EXTENDS FileSystemEntry IMPLEMENTS I_FileEntry
 VAR	
-	_name : T_MaxString;
+	_name : FileName;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -17,8 +17,8 @@ END_VAR
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-	Path : T_MaxString;
-	Name : T_MaxString;
+	Path : FilePath;
+	Name : FileName;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -29,13 +29,13 @@ THIS^._name := Name;]]></ST>
     <Method Name="GetFullPath" Id="{86dfb3ba-2ac4-453b-9589-99870abc7f47}">
       <Declaration><![CDATA[METHOD GetFullPath : T_MaxString
 VAR
-	dir : T_MaxString;
+	fullPath : T_MaxString;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[dir := CONCAT(dir, Path);
-dir := CONCAT(dir, Name);
+        <ST><![CDATA[fullPath := CONCAT(fullPath, Path);
+fullPath := CONCAT(fullPath, Name);
 
-GetFullPath := dir;
+GetFullPath := fullPath;
 ]]></ST>
       </Implementation>
     </Method>
@@ -51,8 +51,7 @@ END_VAR
       </Get>
     </Property>
     <Property Name="Name" Id="{98db7d2a-7a90-4828-a6fa-6391ab557d8f}">
-      <Declaration><![CDATA[PROPERTY Name : T_MaxString
-]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Name : FileName]]></Declaration>
       <Get Name="Get" Id="{306ee5b5-bc75-4317-b5d1-9a0654270ce7}">
         <Declaration><![CDATA[VAR
 END_VAR

@@ -6,8 +6,8 @@
     <Method Name="Find" Id="{700e0810-b935-4015-aa88-7c7d02ab9009}">
       <Declaration><![CDATA[METHOD Find : BOOL;
 VAR_INPUT
-	SearchDirectory : T_MaxString;
-	FileExtension : STRING;
+	SearchDirectory : FilePath;
+	FileExtension : FileExtension;
 END_VAR
 ]]></Declaration>
     </Method>
