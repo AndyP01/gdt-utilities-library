@@ -22,7 +22,7 @@ END_VAR
       </Get>
     </Property>
     <Property Name="Path" Id="{3c9f731c-b965-4c65-9974-4eb7136a1d37}">
-      <Declaration><![CDATA[PROPERTY Path : T_MaxString]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Path : FilePath]]></Declaration>
       <Get Name="Get" Id="{9218161d-0e1f-4a50-82b6-bb6f031cf8de}">
         <Declaration><![CDATA[VAR
 END_VAR

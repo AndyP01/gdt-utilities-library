@@ -7,9 +7,9 @@ FUNCTION_BLOCK PUBLIC FileFinder IMPLEMENTS I_FileFinder, I_Disposable
 VAR
 	fileCollection : I_FileSystemEntryCollection;
 	status : (INIT, FIRST_READ, NEXT_READ, WAITING_FOR_NOT_BUSY, CHECK_EOE, PROCESS_FOUND_ENTRY, FOUND_DIRECTORY, FOUND_FILE, FINISHED) := INIT;
-	searchDir: T_MaxString;	
-	searchPath : T_MaxString;
-	fileExt : STRING;
+	searchDir: FilePath;
+	searchString : T_MaxString;
+	fileExt : FileExtension;
 	fbFindFileEntry : FB_EnumFindFileEntry;
 	recursiveFileFinder : POINTER TO FileFinder;
 END_VAR
@@ -21,13 +21,14 @@ END_VAR
     <Method Name="AddNewFileEntryToCollection" Id="{06392cf5-204a-423e-a7bb-d64aba0e4ddd}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE AddNewFileEntryToCollection
 VAR_INPUT
+	FilePath : FilePath;
 	FileEntryData : ST_FindFileEntry;
 END_VAR
 VAR
 	fileEntry : POINTER TO FileEntry;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[fileEntry := __NEW(FileEntry(Path:=searchDir, Name:=FileEntryData.sFileName));
+        <ST><![CDATA[fileEntry := __NEW(FileEntry(Path:=FilePath, Name:=FileEntryData.sFileName));
 fileCollection.Insert(fileEntry^);]]></ST>
       </Implementation>
     </Method>
@@ -55,11 +56,11 @@ END_VAR
     <Method Name="Find" Id="{d08b7188-a356-44e3-9d70-4e2a94161fb2}">
       <Declaration><![CDATA[METHOD Find : BOOL;
 VAR_INPUT
-	SearchDirectory : T_MaxString;
-	FileExtension : STRING;
+	SearchDirectory : FilePath;
+	FileExtension : FileExtension;
 END_VAR
 VAR
-	newSearchDir : T_MaxString;
+	newSearchDir : FilePath;
 	fileEntry : ST_FindFileEntry;
 END_VAR
 ]]></Declaration>
@@ -69,12 +70,12 @@ END_VAR
 	INIT:
 		searchDir := SearchDirectory;
 		fileExt := FileExtension;
-		searchPath := CONCAT(searchDir, '*');
+		searchString := CONCAT(searchDir, '*');
 		
 		fbFindFileEntry(
 			bExecute:=FALSE,
 			sNetId:='',
-			sPathName:=searchPath,
+			sPathName:=searchString,
 			tTimeout:=DEFAULT_ADS_TIMEOUT
 		);
 		
@@ -140,7 +141,7 @@ END_VAR
 		IF IsMatchingFileExtension(fbFindFileEntry.stFindFile.sFileName, fileExt) THEN
 			ADSLOGSTR(ADSLOG_MSGTYPE_STRING, 'Search directory : %s', searchDir);
 			ADSLOGSTR(ADSLOG_MSGTYPE_STRING, '    - File found : %s', fbFindFileEntry.stFindFile.sFileName);
-			AddNewFileEntryToCollection(fbFindFileEntry.stFindFile);
+			AddNewFileEntryToCollection(searchDir, fbFindFileEntry.stFindFile);
 		END_IF
 		
 		status := NEXT_READ;
@@ -155,9 +156,9 @@ END_CASE
       </Implementation>
     </Method>
     <Method Name="GetFileExtension" Id="{ec9e558d-ad22-43fa-927d-a48c386c4531}" FolderPath="Private\">
-      <Declaration><![CDATA[METHOD PRIVATE GetFileExtension : STRING
+      <Declaration><![CDATA[METHOD PRIVATE GetFileExtension : FileExtension
 VAR_INPUT
-	In : STRING;
+	In : FileName;
 END_VAR
 VAR
 	length : INT;
@@ -174,12 +175,12 @@ GetFileExtension := Tc2_Standard.RIGHT(In, (length - position) + 1);
     <Method Name="IsMatchingFileExtension" Id="{d091fd4f-bfcb-47e0-b9e6-df77b7374b88}" FolderPath="Private\">
       <Declaration><![CDATA[METHOD PRIVATE IsMatchingFileExtension : BOOL
 VAR_INPUT
-	In : STRING;
-	Extension : STRING;
+	In : FileName;
+	Extension : FileExtension;
 END_VAR
 VAR
-	extension1 : STRING;
-	extension2 : STRING;
+	extension1 : FileExtension;
+	extension2 : FileExtension;
 END_VAR
 ]]></Declaration>
       <Implementation>

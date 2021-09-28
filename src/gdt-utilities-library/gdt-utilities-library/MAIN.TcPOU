@@ -7,9 +7,9 @@ VAR
 	
 	fileCollection : FileSystemEntryCollection;
 	fileFinder : FileFinder(fileCollection);
-	searchPath : T_MaxString := 'C:\dev\vision-toolkit\test\integration\';
+	searchPath : FilePath := 'C:\dev\vision-toolkit\test\integration\';
 	fileSystemEntry : I_FileSystemEntry;
-	path : T_MaxString;
+	path : FilePath;
 	
 END_VAR
 ]]></Declaration>
