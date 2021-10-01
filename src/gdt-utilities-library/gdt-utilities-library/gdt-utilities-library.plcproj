@@ -20,8 +20,8 @@
     <ProjectVersion>0.1.0.0</ProjectVersion>
     <Author>GDT</Author>
     <Description>Graph Development Team utilities library.</Description>
-    <Title>
-    </Title>
+    <Title>GDT Utilities Library</Title>
+    <DefaultNamespace>GdtUtilities</DefaultNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DataTypes\FileSystem\FileExtension.TcDUT">
@@ -37,6 +37,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\- Tests\FileSystem_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\- Tests\NullEntry_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FileSystem\DirectoryEntry.TcPOU">
@@ -75,6 +81,12 @@
     <Compile Include="POUs\FileSystem\NullEntry.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\General\- Tests\General_TestSuite.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\General\- Tests\LongStringLen_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\General\Functions\LongStringLen.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -97,7 +109,9 @@
     <Folder Include="POUs" />
     <Folder Include="POUs\FileSystem" />
     <Folder Include="POUs\FileSystem\Interfaces" />
+    <Folder Include="POUs\FileSystem\- Tests" />
     <Folder Include="POUs\General" />
+    <Folder Include="POUs\General\- Tests" />
     <Folder Include="POUs\General\Functions" />
     <Folder Include="POUs\General\Interfaces" />
     <Folder Include="Version" />
@@ -119,6 +133,12 @@
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
+  </ItemGroup>
+  <ItemGroup>
+    <LibraryReference Include="TcUnit,1.2.0.0,www.tcunit.org">
+      <Namespace>TcUnit</Namespace>
+      <HideWhenReferencedAsDependency>true</HideWhenReferencedAsDependency>
+    </LibraryReference>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

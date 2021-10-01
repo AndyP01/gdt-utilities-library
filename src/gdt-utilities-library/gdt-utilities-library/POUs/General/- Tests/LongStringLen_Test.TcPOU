@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="LongStringLen_Test" Id="{a705baa3-b0a7-47fe-9d51-8464a2b266cc}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide'}
+FUNCTION_BLOCK LongStringLen_Test EXTENDS TcUnit.FB_TestSuite
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[EmptyStringReturnsZero();
+LongStringReturnsExpected();
+ShortStringReturnsExpected();
+T_MaxStringReturns255();
+]]></ST>
+    </Implementation>
+    <Method Name="EmptyStringReturnsZero" Id="{aa7ed1ee-bd9f-4e2d-83f8-94d9ed5d9624}">
+      <Declaration><![CDATA[METHOD EmptyStringReturnsZero
+VAR
+	result : UDINT;
+	value : STRING := '';
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('EmptyStringReturnsZero');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+result := LongStringLen(value);
+
+// @TEST-ASSSERT
+AssertEquals_UDINT(Expected := UDINT#0, Actual := result,
+           Message := 'Empty string did not return zero');
+		   
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LongStringReturnsExpected" Id="{da26980a-e645-4819-b21d-7c57cc917ffe}">
+      <Declaration><![CDATA[METHOD LongStringReturnsExpected
+VAR
+	result : UDINT;
+	value : STRING(300) := '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890';
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('LongStringReturnsExpected');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+result := LongStringLen(value);
+
+// @TEST-ASSSERT
+AssertEquals_UDINT(Expected := UDINT#300, Actual := result,
+           Message := 'Long string did not return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ShortStringReturnsExpected" Id="{5978155d-bae8-457a-861d-4f461af82c52}">
+      <Declaration><![CDATA[METHOD ShortStringReturnsExpected
+VAR
+	result : UDINT;
+	value : STRING := '1234567890';
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('ShortStringReturnsExpected');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+result := LongStringLen(value);
+
+// @TEST-ASSSERT
+AssertEquals_UDINT(Expected := UDINT#10, Actual := result,
+           Message := 'Short string did not return expected');
+		   
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="T_MaxStringReturns255" Id="{0a8a6a29-d0f3-407f-bd57-62b44af5b91b}">
+      <Declaration><![CDATA[METHOD T_MaxStringReturns255
+VAR
+	result : UDINT;
+	value : T_MaxString :='123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345';
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('T_MaxStringReturns255');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+result := LongStringLen(value);
+
+// @TEST-ASSSERT
+AssertEquals_UDINT(Expected := UDINT#255, Actual := result,
+           Message := 'T_MaxString did not return 255');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="LongStringLen_Test">
+      <LineId Id="139" Count="3" />
+      <LineId Id="135" Count="0" />
+    </LineIds>
+    <LineIds Name="LongStringLen_Test.EmptyStringReturnsZero">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="LongStringLen_Test.LongStringReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="LongStringLen_Test.ShortStringReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="LongStringLen_Test.T_MaxStringReturns255">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

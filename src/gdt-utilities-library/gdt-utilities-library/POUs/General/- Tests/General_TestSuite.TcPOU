@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="General_TestSuite" Id="{3f2929a5-2d3e-46f3-a12c-f11259cd13c1}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide'}
+PROGRAM General_TestSuite
+VAR
+	longStringLenTest : LongStringLen_Test;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <LineIds Name="General_TestSuite">
+      <LineId Id="13" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

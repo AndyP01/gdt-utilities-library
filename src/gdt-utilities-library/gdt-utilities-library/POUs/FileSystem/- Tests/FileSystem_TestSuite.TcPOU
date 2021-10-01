@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FileSystem_TestSuite" Id="{2b2ca824-75db-48b8-9b88-c87dc5315cc2}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide'}
+PROGRAM FileSystem_TestSuite
+VAR
+	nullEntryTest : NullEntry_Test;
+	//dirEntryTest : DirectoryEntry_Test;
+	//fileEntryTest : FileEntry_Test;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <LineIds Name="FileSystem_TestSuite">
+      <LineId Id="13" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
