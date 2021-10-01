@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <POU Name="MAIN" Id="{ec38523b-9156-4770-8e81-c6221898da8f}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM MAIN
+    <Declaration><![CDATA[{attribute 'hide'}
+PROGRAM MAIN
 VAR
 	state : (IDLE, FIND_FILES, GET_FILES, DONE) := IDLE;
 	
@@ -14,39 +15,46 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// find files in supplied initial folder & sub-folders and populate a collection.
+      <ST><![CDATA[General_TestSuite();
+FileSystem_TestSuite();
 
-CASE state OF 
-	
-	IDLE : //
-	
-	FIND_FILES:
-	
-		IF (fileFinder.Find(searchPath, '*.tcgraph')) THEN
-			state := GET_FILES;
-			
-		END_IF
-	
-	GET_FILES:
-	
-		fileSystemEntry := fileCollection.GetFirst();
-		WHILE (NOT fileSystemEntry.IsNull) DO
+TcUnit.RUN();
 
-			path := fileSystemEntry.Path;
-			fileSystemEntry := fileCollection.GetNext(fileSystemEntry);
-			
-		END_WHILE
-		fileCollection.Clear();
-		
-		state := DONE;
-		
-	DONE: //
+//// find files in supplied initial folder & sub-folders and populate a collection.
+//CASE state OF 
 	
-END_CASE]]></ST>
+//	IDLE : //
+	
+//	FIND_FILES:
+	
+//		IF (fileFinder.Find(searchPath, '*.tcgraph')) THEN
+//			state := GET_FILES;
+			
+//		END_IF
+	
+//	GET_FILES:
+	
+//		fileSystemEntry := fileCollection.GetFirst();
+//		WHILE (NOT fileSystemEntry.IsNull) DO
+
+//			path := fileSystemEntry.Path;
+//			fileSystemEntry := fileCollection.GetNext(fileSystemEntry);
+			
+//		END_WHILE
+//		fileCollection.Clear();
+		
+//		state := DONE;
+		
+//	DONE: //
+	
+//END_CASE]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
+      <LineId Id="533" Count="0" />
+      <LineId Id="536" Count="0" />
+      <LineId Id="534" Count="1" />
+      <LineId Id="537" Count="0" />
       <LineId Id="449" Count="0" />
-      <LineId Id="477" Count="0" />
       <LineId Id="476" Count="0" />
       <LineId Id="490" Count="0" />
       <LineId Id="478" Count="0" />

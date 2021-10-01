@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="NullEntry_Test" Id="{124b9b06-390b-49c4-b8ac-9fe7314e4452}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide'}
+FUNCTION_BLOCK NullEntry_Test EXTENDS TcUnit.FB_TestSuite
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IsNullReturnsExpected();
+]]></ST>
+    </Implementation>
+    <Method Name="IsNullReturnsExpected" Id="{b828288d-cdff-443d-a973-ef3aee41f7cd}">
+      <Declaration><![CDATA[METHOD IsNullReturnsExpected
+VAR
+	result : BOOL;
+	nullEntry : NullEntry('');
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('IsNullReturnsExpected');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+result := nullEntry.IsNull;
+
+// @TEST-ASSSERT
+AssertTrue(Condition := result, Message := 'IsNull did not return TRUE');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="NullEntry_Test">
+      <LineId Id="140" Count="0" />
+      <LineId Id="135" Count="0" />
+    </LineIds>
+    <LineIds Name="NullEntry_Test.IsNullReturnsExpected">
+      <LineId Id="129" Count="0" />
+      <LineId Id="146" Count="3" />
+      <LineId Id="151" Count="0" />
+      <LineId Id="135" Count="2" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
