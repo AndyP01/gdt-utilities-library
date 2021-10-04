@@ -21,27 +21,10 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Property Name="Path" Id="{3c9f731c-b965-4c65-9974-4eb7136a1d37}">
-      <Declaration><![CDATA[PROPERTY Path : FilePath]]></Declaration>
-      <Get Name="Get" Id="{9218161d-0e1f-4a50-82b6-bb6f031cf8de}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[IF (RIGHT(SUPER^.Path, 1) <> '\') THEN
-	Path := CONCAT(SUPER^.Path, '\');
-END_IF]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
     <LineIds Name="DirectoryEntry">
       <LineId Id="9" Count="0" />
     </LineIds>
     <LineIds Name="DirectoryEntry.IsDirectory.Get">
-      <LineId Id="2" Count="0" />
-    </LineIds>
-    <LineIds Name="DirectoryEntry.Path.Get">
-      <LineId Id="5" Count="1" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>

@@ -12,6 +12,7 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Constructor" Id="{700ef6a9-b5fe-4af4-b7d6-effcf0a5f087}" />
+    <Folder Name="Private" Id="{27846fc7-15f2-4e94-a698-4cb4e694175c}" />
     <Method Name="Dispose" Id="{a35e5125-c9c9-47fb-b996-f8c06aa27213}">
       <Declaration><![CDATA[METHOD Dispose
 ]]></Declaration>
@@ -29,7 +30,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[THIS^._path := Path;
+        <ST><![CDATA[THIS^._path := PathCorrection(Path);
 ]]></ST>
       </Implementation>
     </Method>
@@ -78,6 +79,24 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="PathCorrection" Id="{07ef579f-3cb5-4875-a980-765197adebd7}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE PathCorrection : FilePath
+VAR_INPUT
+	PathToCheck : FilePath;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (PathToCheck = '') THEN
+	PathCorrection := '.\';
+	RETURN;
+END_IF
+
+IF (RIGHT(PathToCheck, 1) <> '\') THEN
+	PathCorrection := CONCAT(PathToCheck, '\');
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
     <LineIds Name="FileSystemEntry">
       <LineId Id="9" Count="0" />
     </LineIds>
@@ -101,6 +120,15 @@ END_VAR
     <LineIds Name="FileSystemEntry.Path.Get">
       <LineId Id="2" Count="0" />
       <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntry.PathCorrection">
+      <LineId Id="9" Count="1" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="7" Count="1" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="17" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
