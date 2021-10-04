@@ -1,0 +1,632 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="AnyToString_Test" Id="{1ed4c922-af28-48ea-aaf8-e6fa8a21d777}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide'}
+FUNCTION_BLOCK AnyToString_Test EXTENDS TcUnit.FB_TestSuite
+VAR
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ByteReturnsExpected();
+WordReturnsExpected();
+DwordReturnsExpected();
+LwordReturnsExpected();
+//DateAndTimeReturnsExpected();
+//DtReturnsExpected();
+//DateReturnsExpected();
+//TimeOfDayReturnsExpected();
+//TodReturnsExpected();
+RealReturnsExpected();
+LrealReturnsExpected();
+UsintReturnsExpected();
+UintReturnsExpected();
+UdintReturnsExpected();
+UlintReturnsExpected();
+SintReturnsExpected();
+IntReturnsExpected();
+DintReturnsExpected();
+LintReturnsExpected();
+//StringReturnsExpected();
+//WstringReturnsExpected();
+]]></ST>
+    </Implementation>
+    <Method Name="ByteReturnsExpected" Id="{a9ef3105-eaed-4325-865c-712e212e75da}">
+      <Declaration><![CDATA[METHOD ByteReturnsExpected
+VAR
+	expected : STRING;
+	actual : STRING;
+	value : BYTE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('ByteReturnsExpected');
+
+// @TEST-FIXTURE
+value := BYTE#16#FF;
+expected := '255';
+
+// @TEST-RUN
+actual := AnyToString(value);
+
+// @TEST-ASSSERT
+AssertEquals_String(Expected := expected, Actual := actual, Message := 'BYTE did return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DintReturnsExpected" Id="{f7c46fa0-b0b9-43fe-943d-c276ed765e2c}">
+      <Declaration><![CDATA[METHOD DintReturnsExpected
+VAR
+	expected : STRING;
+	actual : STRING;
+	value : DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('DintdReturnsExpected');
+
+// @TEST-FIXTURE
+value := DINT#16#7FFFFFFF;
+expected := '2147483647';
+
+// @TEST-RUN
+actual := AnyToString(value);
+
+// @TEST-ASSSERT
+AssertEquals_String(Expected := expected, Actual := actual, Message := 'DINT did return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DwordReturnsExpected" Id="{0f9e3ba1-bdc1-412b-95bd-1a6654401c2b}">
+      <Declaration><![CDATA[METHOD DwordReturnsExpected
+VAR
+	expected : STRING;
+	actual : STRING;
+	value : DWORD;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('DwordReturnsExpected');
+
+// @TEST-FIXTURE
+value := DWORD#16#FFFFFFFF;
+expected := '4294967295';
+
+// @TEST-RUN
+actual := AnyToString(value);
+
+// @TEST-ASSSERT
+AssertEquals_String(Expected := expected, Actual := actual, Message := 'DWORD did return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IntReturnsExpected" Id="{e822ca86-5330-4d4e-b514-3ae70e69cfb4}">
+      <Declaration><![CDATA[METHOD IntReturnsExpected
+VAR
+	expected : STRING;
+	actual : STRING;
+	value : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('IntReturnsExpected');
+
+// @TEST-FIXTURE
+value := INT#16#7FFF;
+expected := '32767';
+
+// @TEST-RUN
+actual := AnyToString(value);
+
+// @TEST-ASSSERT
+AssertEquals_String(Expected := expected, Actual := actual, Message := 'INT did return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LintReturnsExpected" Id="{912bcd96-0b16-4753-9a6f-1e8283489e61}">
+      <Declaration><![CDATA[METHOD LintReturnsExpected
+VAR
+	expected : STRING;
+	actual : STRING;
+	value : LINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('LintReturnsExpected');
+
+// @TEST-FIXTURE
+value := LINT#16#7FFFFFFFFFFFFFFF;
+expected := '9223372036854775807';
+
+// @TEST-RUN
+actual := AnyToString(value);
+
+// @TEST-ASSSERT
+AssertEquals_String(Expected := expected, Actual := actual, Message := 'LINT did return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LrealReturnsExpected" Id="{6fe53b0e-93e0-4112-b4c0-169d5f6e8db1}">
+      <Declaration><![CDATA[METHOD LrealReturnsExpected
+VAR
+	expected : STRING;
+	actual : STRING;
+	value : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('LrealReturnsExpected');
+
+// @TEST-FIXTURE
+//TODO TwinCAT crashes when trying to use maximum LREAL value.
+//value := LREAL#1.7976931348623158E+308;
+//expected := '1.7976931348623158E308';
+
+value := LREAL#3.402823E+38;
+
+//TODO LREAL string returns a lower case 'e' instead of upper case 'E"
+expected := '3.402823E38';
+
+// @TEST-RUN
+actual := AnyToString(value);
+
+// @TEST-ASSSERT
+AssertEquals_String(Expected := expected, Actual := actual, Message := 'LREAL did return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LwordReturnsExpected" Id="{6acf08ab-80ee-4775-ad0a-9a226e9c94ad}">
+      <Declaration><![CDATA[METHOD LwordReturnsExpected
+VAR
+	expected : STRING;
+	actual : STRING;
+	value : LWORD;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('LwordReturnsExpected');
+
+// @TEST-FIXTURE
+value := LWORD#16#FFFFFFFFFFFFFFFF;
+expected := '18446744073709551615';
+
+// @TEST-RUN
+actual := AnyToString(value);
+
+// @TEST-ASSSERT
+AssertEquals_String(Expected := expected, Actual := actual, Message := 'LWORD did return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RealReturnsExpected" Id="{f27e755b-7802-426f-8662-07063299d57c}">
+      <Declaration><![CDATA[METHOD RealReturnsExpected
+VAR
+	expected : STRING;
+	actual : STRING;
+	value : REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('RealReturnsExpected');
+
+// @TEST-FIXTURE
+value := REAL#3.402823E+38;
+expected := '3.402823E38';
+
+// @TEST-RUN
+actual := AnyToString(value);
+
+// @TEST-ASSSERT
+AssertEquals_String(Expected := expected, Actual := actual, Message := 'REAL did return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SintReturnsExpected" Id="{6b5cbd34-703f-4a11-8bcb-15f18ef59831}">
+      <Declaration><![CDATA[METHOD SintReturnsExpected
+VAR
+	expected : STRING;
+	actual : STRING;
+	value : SINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('SintReturnsExpected');
+
+// @TEST-FIXTURE
+value := SINT#16#7F;
+expected := '127';
+
+// @TEST-RUN
+actual := AnyToString(value);
+
+// @TEST-ASSSERT
+AssertEquals_String(Expected := expected, Actual := actual, Message := 'SINT did return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="UdintReturnsExpected" Id="{421ee19d-47ce-420b-8180-2043153f7d98}">
+      <Declaration><![CDATA[METHOD UdintReturnsExpected
+VAR
+	expected : STRING;
+	actual : STRING;
+	value : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('UdintdReturnsExpected');
+
+// @TEST-FIXTURE
+value := UDINT#16#FFFFFFFF;
+expected := '4294967295';
+
+// @TEST-RUN
+actual := AnyToString(value);
+
+// @TEST-ASSSERT
+AssertEquals_String(Expected := expected, Actual := actual, Message := 'UDINT did return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="UintReturnsExpected" Id="{a00dcf22-450b-4421-8e55-c44c8d716ae2}">
+      <Declaration><![CDATA[METHOD UintReturnsExpected
+VAR
+	expected : STRING;
+	actual : STRING;
+	value : UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('UintReturnsExpected');
+
+// @TEST-FIXTURE
+value := UINT#16#FFFF;
+expected := '65535';
+
+// @TEST-RUN
+actual := AnyToString(value);
+
+// @TEST-ASSSERT
+AssertEquals_String(Expected := expected, Actual := actual, Message := 'UINT did return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="UlintReturnsExpected" Id="{964beb83-99e3-4fed-bbae-bb3f54588116}">
+      <Declaration><![CDATA[METHOD UlintReturnsExpected
+VAR
+	expected : STRING;
+	actual : STRING;
+	value : ULINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('UlintReturnsExpected');
+
+// @TEST-FIXTURE
+value := ULINT#16#FFFFFFFFFFFFFFFF;
+expected := '18446744073709551615';
+
+// @TEST-RUN
+actual := AnyToString(value);
+
+// @TEST-ASSSERT
+AssertEquals_String(Expected := expected, Actual := actual, Message := 'ULINT did return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="UsintReturnsExpected" Id="{09b47477-fe4a-4e92-8de7-3c44dba1b24e}">
+      <Declaration><![CDATA[METHOD UsintReturnsExpected
+VAR
+	expected : STRING;
+	actual : STRING;
+	value : USINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('UsintReturnsExpected');
+
+// @TEST-FIXTURE
+value := USINT#16#FF;
+expected := '255';
+
+// @TEST-RUN
+actual := AnyToString(value);
+
+// @TEST-ASSSERT
+AssertEquals_String(Expected := expected, Actual := actual, Message := 'USINT did return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WordReturnsExpected" Id="{d82e09ec-2630-40f9-8ad2-98a2f6f573cf}">
+      <Declaration><![CDATA[METHOD WordReturnsExpected
+VAR
+	expected : STRING;
+	actual : STRING;
+	value : WORD;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('WordReturnsExpected');
+
+// @TEST-FIXTURE
+value := WORD#16#FFFF;
+expected := '65535';
+
+// @TEST-RUN
+actual := AnyToString(value);
+
+// @TEST-ASSSERT
+AssertEquals_String(Expected := expected, Actual := actual, Message := 'WORD did return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="AnyToString_Test">
+      <LineId Id="121" Count="0" />
+      <LineId Id="131" Count="1" />
+      <LineId Id="128" Count="0" />
+      <LineId Id="133" Count="2" />
+      <LineId Id="129" Count="0" />
+      <LineId Id="136" Count="6" />
+      <LineId Id="130" Count="0" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="149" Count="2" />
+      <LineId Id="145" Count="0" />
+      <LineId Id="126" Count="0" />
+    </LineIds>
+    <LineIds Name="AnyToString_Test.ByteReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="AnyToString_Test.DintReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="AnyToString_Test.DwordReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="AnyToString_Test.IntReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="AnyToString_Test.LintReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="AnyToString_Test.LrealReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="177" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="176" Count="0" />
+      <LineId Id="175" Count="0" />
+      <LineId Id="179" Count="0" />
+      <LineId Id="178" Count="0" />
+      <LineId Id="174" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="AnyToString_Test.LwordReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="AnyToString_Test.RealReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="AnyToString_Test.SintReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="AnyToString_Test.UdintReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="AnyToString_Test.UintReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="AnyToString_Test.UlintReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="AnyToString_Test.UsintReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="AnyToString_Test.WordReturnsExpected">
+      <LineId Id="6" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

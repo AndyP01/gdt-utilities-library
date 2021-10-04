@@ -1,11 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <POU Name="Mock_FilesystemEntry" Id="{acbcab05-a2a1-47d3-8447-d5538d9585da}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'enable_dynamic_creation'}
-{attribute 'no_explicit_call' := 'do not call this FB directly'}
+    <Declaration><![CDATA[{attribute 'hide'}
 FUNCTION_BLOCK PUBLIC Mock_FilesystemEntry EXTENDS FileSystemEntry
-VAR
-END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
