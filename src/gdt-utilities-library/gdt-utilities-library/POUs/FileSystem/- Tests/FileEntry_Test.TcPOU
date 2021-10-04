@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FileEntry_Test" Id="{17041bfc-bd21-46d0-83c0-0d4172417c38}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide'}
+FUNCTION_BLOCK FileEntry_Test EXTENDS TcUnit.FB_TestSuite
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IsFileReturnsExpected();
+NameReturnsExpected();
+GetFullPathReturnsExpected();
+]]></ST>
+    </Implementation>
+    <Method Name="GetFullPathReturnsExpected" Id="{41bb275b-6cd0-4836-90c9-4cd1077b2f6d}">
+      <Declaration><![CDATA[METHOD GetFullPathReturnsExpected
+VAR
+	expected : FileName;
+	actual : FileName;
+	fileEntry : FileEntry('C:\temp', 'test.txt');
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('GetFullPathReturnsExpected');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+expected := 'C:\temp\test.txt';
+actual := fileEntry.GetFullPath();
+
+// @TEST-ASSSERT
+AssertEquals_STRING(Expected := expected, Actual := actual, Message := 'File GetFullPath did not return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsFileReturnsExpected" Id="{3436b61c-0f7a-44b8-8996-82a32d002ec6}">
+      <Declaration><![CDATA[METHOD IsFileReturnsExpected
+VAR
+	result : BOOL;
+	fileEntry : FileEntry('', '');
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('IsFileReturnsExpected');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+result := fileEntry.IsFile;
+
+// @TEST-ASSSERT
+AssertTrue(Condition := result, Message := 'IsFile did not return TRUE');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="NameReturnsExpected" Id="{53e200f9-6afe-4bd6-b22b-6d31a0529872}">
+      <Declaration><![CDATA[METHOD NameReturnsExpected
+VAR
+	expected : FileName;
+	actual : FileName;
+	fileEntry : FileEntry('C:\temp', 'test.txt');
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('NameReturnsExpected');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+expected := 'test.txt';
+actual := fileEntry.Name;
+
+// @TEST-ASSSERT
+AssertEquals_STRING(Expected := expected, Actual := actual, Message := 'File name did not return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FileEntry_Test">
+      <LineId Id="140" Count="0" />
+      <LineId Id="147" Count="1" />
+      <LineId Id="135" Count="0" />
+    </LineIds>
+    <LineIds Name="FileEntry_Test.GetFullPathReturnsExpected">
+      <LineId Id="129" Count="0" />
+      <LineId Id="146" Count="3" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="151" Count="0" />
+      <LineId Id="135" Count="2" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="FileEntry_Test.IsFileReturnsExpected">
+      <LineId Id="129" Count="0" />
+      <LineId Id="146" Count="3" />
+      <LineId Id="151" Count="0" />
+      <LineId Id="135" Count="2" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="FileEntry_Test.NameReturnsExpected">
+      <LineId Id="129" Count="0" />
+      <LineId Id="146" Count="3" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="151" Count="0" />
+      <LineId Id="135" Count="2" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

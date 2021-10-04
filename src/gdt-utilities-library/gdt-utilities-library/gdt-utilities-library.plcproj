@@ -39,10 +39,22 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FileSystem\- Tests\- Mocks\Mock_FilesystemEntry.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\- Tests\FileEntry_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\- Tests\FileSystemEntry_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FileSystem\- Tests\FileSystem_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FileSystem\- Tests\NullEntry_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\- Tests\DirectoryEntry_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FileSystem\DirectoryEntry.TcPOU">
@@ -108,6 +120,7 @@
     <Folder Include="GlobalVariables" />
     <Folder Include="POUs" />
     <Folder Include="POUs\FileSystem" />
+    <Folder Include="POUs\FileSystem\- Tests\- Mocks" />
     <Folder Include="POUs\FileSystem\Interfaces" />
     <Folder Include="POUs\FileSystem\- Tests" />
     <Folder Include="POUs\General" />

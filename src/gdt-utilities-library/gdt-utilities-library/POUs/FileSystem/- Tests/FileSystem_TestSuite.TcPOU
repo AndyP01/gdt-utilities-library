@@ -4,9 +4,10 @@
     <Declaration><![CDATA[{attribute 'hide'}
 PROGRAM FileSystem_TestSuite
 VAR
+	fileSystemEntryTest : FileSystemEntry_Test;
 	nullEntryTest : NullEntry_Test;
-	//dirEntryTest : DirectoryEntry_Test;
-	//fileEntryTest : FileEntry_Test;
+	dirEntryTest : DirectoryEntry_Test;
+	fileEntryTest : FileEntry_Test;
 END_VAR
 ]]></Declaration>
     <Implementation>
