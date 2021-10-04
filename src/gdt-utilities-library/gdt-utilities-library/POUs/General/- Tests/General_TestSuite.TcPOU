@@ -4,6 +4,8 @@
     <Declaration><![CDATA[{attribute 'hide'}
 PROGRAM General_TestSuite
 VAR
+	anyToStringTest : AnyToString_Test;
+	isValueEvenTest : IsValueEven_Test;
 	longStringLenTest : LongStringLen_Test;
 END_VAR
 ]]></Declaration>

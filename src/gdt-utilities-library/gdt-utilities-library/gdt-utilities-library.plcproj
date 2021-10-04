@@ -96,7 +96,19 @@
     <Compile Include="POUs\General\- Tests\General_TestSuite.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\General\- Tests\IsValueEven_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\General\- Tests\AnyToString_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\General\- Tests\LongStringLen_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\General\Functions\AnyToString.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\General\Functions\IsValueEven.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\General\Functions\LongStringLen.TcPOU">
