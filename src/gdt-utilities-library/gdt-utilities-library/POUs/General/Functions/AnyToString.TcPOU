@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="AnyToString" Id="{68ac7bb6-0cf6-42a9-9d72-7debbfdb1320}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION AnyToString : STRING
+VAR_INPUT
+	Value : ANY;
+END_VAR
+VAR
+	pAnyBYTE : POINTER TO BYTE; 
+	pAnyWORD : POINTER TO WORD; 
+	pAnyDWORD : POINTER TO DWORD; 
+	pAnyLWORD : POINTER TO LWORD;
+	pAnyDATE_AND_TIME : POINTER TO DATE_AND_TIME; 
+	pAnyDT : POINTER TO DT;
+	pAnyDATE : POINTER TO DATE; 
+	pAnyTIME_OF_DAY : POINTER TO TIME_OF_DAY; 
+	pAnyTOD : POINTER TO TOD;
+	pAnyREAL : POINTER TO REAL; 
+	pAnyLREAL : POINTER TO LREAL;
+	pAnyUSINT : POINTER TO USINT; 
+	pAnyUINT : POINTER TO UINT;
+	pAnyUDINT : POINTER TO UDINT; 
+	pAnyULINT : POINTER TO ULINT;
+	pAnySINT : POINTER TO SINT; 
+	pAnyINT : POINTER TO INT;
+	pAnyDINT : POINTER TO DINT; 
+	pAnyLINT : POINTER TO LINT;
+	pAnySTRING : POINTER TO STRING;
+	pAnyWSTRING : POINTER TO WSTRING;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_BYTE) THEN
+    pAnyBYTE := Value.pValue; 
+    AnyToString := BYTE_TO_STRING(pAnyBYTE^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_WORD) THEN
+    pAnyWORD := Value.pValue; 
+    AnyToString  := WORD_TO_STRING(pAnyWORD^);
+
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_DWORD) THEN
+    pAnyDWORD := Value.pValue; 
+    AnyToString  := DWORD_TO_STRING(pAnyDWORD^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_LWORD) THEN
+    pAnyLWORD := Value.pValue; 
+    AnyToString  := LWORD_TO_STRING(pAnyLWORD^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_DATEANDTIME) THEN
+    pAnyDATE_AND_TIME := Value.pValue; 
+    AnyToString  := DT_TO_STRING(pAnyDATE_AND_TIME^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_DATE) THEN
+    pAnyDATE := Value.pValue; 
+    AnyToString  := DATE_TO_STRING(pAnyDATE^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_TIMEOFDAY) THEN
+    pAnyTIME_OF_DAY := Value.pValue; 
+    AnyToString  := TOD_TO_STRING(pAnyTIME_OF_DAY^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_REAL) THEN
+    pAnyREAL := Value.pValue; 
+    AnyToString  := REAL_TO_STRING(pAnyREAL^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_LREAL) THEN
+    pAnyLREAL := Value.pValue; 
+    AnyToString  := LREAL_TO_STRING(pAnyLREAL^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_USINT) THEN
+    pAnyUSINT := Value.pValue; 
+    AnyToString  := USINT_TO_STRING(pAnyUSINT^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_UINT) THEN
+    pAnyUINT := Value.pValue; 
+    AnyToString  := UINT_TO_STRING(pAnyUINT^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_UDINT) THEN
+    pAnyUDINT := Value.pValue; 
+    AnyToString  := UDINT_TO_STRING(pAnyUDINT^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_ULINT) THEN
+    pAnyULint := Value.pValue; 
+    AnyToString  := ULINT_TO_STRING(pAnyULint^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_SINT) THEN
+    pAnySINT := Value.pValue; 
+    AnyToString  := SINT_TO_STRING(pAnySINT^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_INT) THEN
+    pAnyINT := Value.pValue; 
+    AnyToString  := INT_TO_STRING(pAnyINT^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_DINT) THEN
+    pAnyDINT := Value.pValue; 
+    AnyToString  := DINT_TO_STRING(pAnyDINT^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_LINT) THEN
+    pAnyLINT := Value.pValue; 
+    AnyToString  := LINT_TO_STRING(pAnyLINT^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_STRING) THEN
+    pAnySTRING := Value.pValue; 
+    AnyToString  := pAnySTRING^;
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_WSTRING) THEN
+    pAnyWSTRING := Value.pValue; 
+    AnyToString  := WSTRING_TO_STRING(pAnyWSTRING^);
+
+END_IF
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="AnyToString">
+      <LineId Id="10" Count="2" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="50" Count="1" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="53" Count="2" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="58" Count="1" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="62" Count="1" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="66" Count="1" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="70" Count="1" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="74" Count="1" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="78" Count="1" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="82" Count="1" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="86" Count="1" />
+      <LineId Id="85" Count="0" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="90" Count="1" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="92" Count="0" />
+      <LineId Id="94" Count="1" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="98" Count="1" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="102" Count="1" />
+      <LineId Id="101" Count="0" />
+      <LineId Id="104" Count="0" />
+      <LineId Id="106" Count="1" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="108" Count="0" />
+      <LineId Id="110" Count="1" />
+      <LineId Id="109" Count="0" />
+      <LineId Id="142" Count="0" />
+      <LineId Id="144" Count="1" />
+      <LineId Id="143" Count="0" />
+      <LineId Id="112" Count="0" />
+      <LineId Id="114" Count="1" />
+      <LineId Id="113" Count="0" />
+      <LineId Id="17" Count="2" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

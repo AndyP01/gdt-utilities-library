@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="IsValueEven" Id="{12d8fa94-1b96-4b1f-973b-4991d0f4f1c0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION IsValueEven : BOOL
+VAR_INPUT
+	Value : ANY_INT;
+END_VAR
+VAR
+	pAnyUSINT : POINTER TO USINT; 
+	pAnyUINT : POINTER TO UINT;
+	pAnyUDINT : POINTER TO UDINT; 
+	pAnyULINT : POINTER TO ULINT;
+	pAnySINT : POINTER TO SINT; 
+	pAnyINT : POINTER TO INT;
+	pAnyDINT : POINTER TO DINT; 
+	pAnyLINT : POINTER TO LINT;
+	conversion : ULINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_USINT) THEN
+    pAnyUSINT := Value.pValue; 
+    conversion  := USINT_TO_ULINT(pAnyUSINT^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_UINT) THEN
+    pAnyUINT := Value.pValue; 
+    conversion  := UINT_TO_ULINT(pAnyUINT^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_UDINT) THEN
+    pAnyUDINT := Value.pValue; 
+    conversion  := UDINT_TO_ULINT(pAnyUDINT^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_ULINT) THEN
+    pAnyULint := Value.pValue; 
+    conversion  := pAnyULint^;
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_SINT) THEN
+    pAnySINT := Value.pValue; 
+    conversion  := SINT_TO_ULINT(pAnySINT^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_INT) THEN
+    pAnyINT := Value.pValue; 
+    conversion  := INT_TO_ULINT(pAnyINT^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_DINT) THEN
+    pAnyDINT := Value.pValue; 
+    conversion  := DINT_TO_ULINT(pAnyDINT^);
+	
+ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_LINT) THEN
+    pAnyLINT := Value.pValue; 
+    conversion  := LINT_TO_ULINT(pAnyLINT^);
+
+ELSE
+	RETURN;
+	
+END_IF;
+
+IsValueEven := (conversion MOD 2 ) = 0;]]></ST>
+    </Implementation>
+    <LineIds Name="IsValueEven">
+      <LineId Id="22" Count="29" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="59" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
