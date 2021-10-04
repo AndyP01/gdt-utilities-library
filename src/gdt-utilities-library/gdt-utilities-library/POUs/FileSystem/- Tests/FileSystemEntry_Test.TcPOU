@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FileSystemEntry_Test" Id="{5cb30f18-e69e-4fe1-9679-47172b385adc}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide'}
+FUNCTION_BLOCK FileSystemEntry_Test EXTENDS TcUnit.FB_TestSuite
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[EmptyPathReturnsExpected();
+PathAppendsBackslashIfRequired();
+]]></ST>
+    </Implementation>
+    <Method Name="EmptyPathReturnsExpected" Id="{1514409c-d8c6-4d6c-b823-fcbdfc54c49c}">
+      <Declaration><![CDATA[METHOD EmptyPathReturnsExpected
+VAR
+	expected : FilePath;
+	actual : FilePath;
+	mockFileSystemEntry : Mock_FilesystemEntry('');
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('EmptyPathReturnsExpected');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+expected := '.\';
+actual := mockFileSystemEntry.Path;
+
+// @TEST-ASSSERT
+AssertEquals_STRING(Expected := expected, Actual := actual, Message := 'Empty path did not return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PathAppendsBackslashIfRequired" Id="{c54ca597-8631-4e86-af61-2c4568128ee1}">
+      <Declaration><![CDATA[METHOD PathAppendsBackslashIfRequired
+VAR
+	expected : FilePath;
+	actual : FilePath;
+	mockFileSystemEntry : Mock_FilesystemEntry('C:\temp');
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('PathAppendsBackslashIfRequired');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+expected := 'C:\temp\';
+actual := mockFileSystemEntry.Path;
+
+// @TEST-ASSSERT
+AssertEquals_STRING(Expected := expected, Actual := actual, Message := 'Path did not return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FileSystemEntry_Test">
+      <LineId Id="152" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="153" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntry_Test.EmptyPathReturnsExpected">
+      <LineId Id="129" Count="0" />
+      <LineId Id="146" Count="3" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="151" Count="0" />
+      <LineId Id="135" Count="2" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntry_Test.PathAppendsBackslashIfRequired">
+      <LineId Id="129" Count="0" />
+      <LineId Id="146" Count="3" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="151" Count="0" />
+      <LineId Id="135" Count="2" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

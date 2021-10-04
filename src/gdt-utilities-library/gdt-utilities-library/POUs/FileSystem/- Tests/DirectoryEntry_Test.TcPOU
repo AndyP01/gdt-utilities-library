@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="DirectoryEntry_Test" Id="{739998d6-ba93-4aae-a1fe-d62d74083cb7}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide'}
+FUNCTION_BLOCK DirectoryEntry_Test EXTENDS TcUnit.FB_TestSuite
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IsDirectoryReturnsExpected();
+]]></ST>
+    </Implementation>
+    <Method Name="IsDirectoryReturnsExpected" Id="{64008ed6-09f5-4100-8d0a-feb4d621e890}">
+      <Declaration><![CDATA[METHOD IsDirectoryReturnsExpected
+VAR
+	result : BOOL;
+	dirEntry : DirectoryEntry('');
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('IsDirectoryReturnsExpected');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+result := dirEntry.IsDirectory;
+
+// @TEST-ASSSERT
+AssertTrue(Condition := result, Message := 'IsDirectory did not return TRUE');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="DirectoryEntry_Test">
+      <LineId Id="140" Count="0" />
+      <LineId Id="135" Count="0" />
+    </LineIds>
+    <LineIds Name="DirectoryEntry_Test.IsDirectoryReturnsExpected">
+      <LineId Id="129" Count="0" />
+      <LineId Id="146" Count="3" />
+      <LineId Id="151" Count="0" />
+      <LineId Id="135" Count="2" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
