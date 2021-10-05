@@ -179,7 +179,7 @@ expected := '3.402823E38';
 actual := AnyToString(value);
 
 // @TEST-ASSSERT
-AssertEquals_String(Expected := expected, Actual := actual, Message := 'LREAL did return expected');
+AssertEquals_String(Expected := expected, Actual := actual, Message := 'LREAL did not return expected');
 
 TEST_FINISHED();
 ]]></ST>

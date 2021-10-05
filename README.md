@@ -18,7 +18,7 @@ in perpetuity.
 The documentation for this project can be found [here](https://tcgraph-dev-team.github.io/gdt-utilities-library/). 
 
 ## Versions
-* TcXaeShell 3.1.4024.17
+* TcXaeShell 3.1.4024.20
 
 ## Need more help?
 Please visit http://beckhoff.com/ for further guides
