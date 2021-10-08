@@ -6,6 +6,13 @@
     <Method Name="Clear" Id="{ba765080-6bd7-4248-81cd-65eba6d697a4}">
       <Declaration><![CDATA[METHOD Clear]]></Declaration>
     </Method>
+    <Method Name="GetByIndex" Id="{fcdb0399-2517-4f0c-ad4c-26993eff6e6c}">
+      <Declaration><![CDATA[METHOD GetByIndex : I_FileSystemEntry
+VAR_INPUT
+	Index : DINT;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="GetFirst" Id="{5d1ec355-1838-4d2c-a8c0-71a7c4a8d413}">
       <Declaration><![CDATA[METHOD GetFirst : I_FileSystemEntry
 ]]></Declaration>

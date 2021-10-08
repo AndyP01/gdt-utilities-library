@@ -30,6 +30,7 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[fileEntry := __NEW(FileEntry(Path:=FilePath, Name:=FileEntryData.sFileName));
 THIS^.fileCollection.Insert(fileEntry^);
+ADSLOGSTR(ADSLOG_MSGTYPE_STRING, 'File added to collection: %s', fileEntry^.GetFullPath());
 ]]></ST>
       </Implementation>
     </Method>
@@ -37,7 +38,7 @@ THIS^.fileCollection.Insert(fileEntry^);
       <Declaration><![CDATA[METHOD Dispose
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[//__DELETE(THIS);
+        <ST><![CDATA[__DELETE(THIS);
 ]]></ST>
       </Implementation>
     </Method>
@@ -52,17 +53,7 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF __QUERYINTERFACE(Entry, disposable) THEN
 	disposable.Dispose();
-END_IF]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="FB_exit" Id="{c642ca52-e5c5-467c-91a6-24641b3fda4c}">
-      <Declaration><![CDATA[METHOD FB_exit : BOOL
-VAR_INPUT
-	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[Dispose();
+END_IF
 ]]></ST>
       </Implementation>
     </Method>
@@ -151,15 +142,14 @@ END_VAR
 		IF (recursiveFileFinder^.Find(newSearchDir, fileExt)) THEN // find files in sub-directory.
 		
 			recursiveCollection := recursiveFileFinder^.GetResults();
-				
 			fileSystemEntry := recursiveCollection.GetFirst();
 		
 			WHILE NOT (fileSystemEntry.IsNull) DO
-				ADSLOGSTR(ADSLOG_MSGTYPE_STRING, '    - Recursive file found : %s', fileSystemEntry.Path);
-//				THIS^.fileCollection.Insert(fileSystemEntry);
+				THIS^.fileCollection.Insert(fileSystemEntry);
 				fileSystemEntry := recursiveCollection.GetNext(fileSystemEntry);
 			END_WHILE
-				
+			
+			recursiveCollection.Clear();
 			recursiveFileFinder^.Dispose();
 			recursiveFileFinder := 0;
 			status := NEXT_READ;
@@ -168,8 +158,6 @@ END_VAR
 
 	FOUND_FILE:
 		IF IsMatchingFileExtension(fbFindFileEntry.stFindFile.sFileName, fileExt) THEN
-			ADSLOGSTR(ADSLOG_MSGTYPE_STRING, 'Search directory : %s', searchDir);
-			ADSLOGSTR(ADSLOG_MSGTYPE_STRING, '    - File found : %s', fbFindFileEntry.stFindFile.sFileName);
 			AddNewFileEntryToCollection(searchDir, fbFindFileEntry.stFindFile);
 		END_IF
 		
@@ -235,6 +223,7 @@ IsMatchingFileExtension := (extension1 = extension2);
       <LineId Id="5" Count="0" />
       <LineId Id="9" Count="0" />
       <LineId Id="17" Count="0" />
+      <LineId Id="25" Count="0" />
     </LineIds>
     <LineIds Name="FileFinder.Dispose">
       <LineId Id="5" Count="0" />
@@ -243,9 +232,7 @@ IsMatchingFileExtension := (extension1 = extension2);
     <LineIds Name="FileFinder.DisposeEntry">
       <LineId Id="6" Count="1" />
       <LineId Id="5" Count="0" />
-    </LineIds>
-    <LineIds Name="FileFinder.FB_exit">
-      <LineId Id="6" Count="1" />
+      <LineId Id="14" Count="0" />
     </LineIds>
     <LineIds Name="FileFinder.Find">
       <LineId Id="1032" Count="2" />
@@ -254,15 +241,16 @@ IsMatchingFileExtension := (extension1 = extension2);
       <LineId Id="1184" Count="0" />
       <LineId Id="1087" Count="11" />
       <LineId Id="1146" Count="1" />
-      <LineId Id="1158" Count="0" />
       <LineId Id="1152" Count="1" />
-      <LineId Id="1188" Count="1" />
+      <LineId Id="1188" Count="0" />
       <LineId Id="1155" Count="1" />
       <LineId Id="1150" Count="0" />
       <LineId Id="1157" Count="0" />
-      <LineId Id="1099" Count="2" />
+      <LineId Id="1201" Count="1" />
+      <LineId Id="1100" Count="1" />
       <LineId Id="1159" Count="0" />
-      <LineId Id="1102" Count="16" />
+      <LineId Id="1102" Count="3" />
+      <LineId Id="1108" Count="10" />
       <LineId Id="270" Count="0" />
     </LineIds>
     <LineIds Name="FileFinder.GetFileExtension">

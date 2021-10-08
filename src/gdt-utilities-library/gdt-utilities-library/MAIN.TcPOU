@@ -10,8 +10,9 @@ VAR
 	fileCollection : FileSystemEntryCollection;
 	searchPath : FilePath := 'C:\temp\integration\';
 	fileSystemEntry : I_FileSystemEntry;
+	disposable : I_Disposable;
 	path : FilePath;
-	
+	index : DINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -42,9 +43,17 @@ CASE state OF
 		END_WHILE
 		//fileCollection.Clear();
 		
+		FOR index := 0 TO fileCollection.Count - 1 DO
+			fileSystemEntry := fileCollection.GetByIndex(index);
+//			IF __QUERYINTERFACE(fileSystemEntry, disposable) THEN
+//				disposable.Dispose();
+//			END_IF
+		END_FOR
+		
 		state := DONE;
 		
 	DONE: //
+			
 	
 END_CASE]]></ST>
     </Implementation>
@@ -72,8 +81,14 @@ END_CASE]]></ST>
       <LineId Id="519" Count="1" />
       <LineId Id="499" Count="0" />
       <LineId Id="491" Count="0" />
-      <LineId Id="501" Count="2" />
+      <LineId Id="501" Count="0" />
+      <LineId Id="576" Count="1" />
+      <LineId Id="581" Count="1" />
+      <LineId Id="580" Count="0" />
+      <LineId Id="578" Count="1" />
+      <LineId Id="502" Count="1" />
       <LineId Id="492" Count="0" />
+      <LineId Id="552" Count="0" />
       <LineId Id="504" Count="0" />
       <LineId Id="311" Count="0" />
     </LineIds>

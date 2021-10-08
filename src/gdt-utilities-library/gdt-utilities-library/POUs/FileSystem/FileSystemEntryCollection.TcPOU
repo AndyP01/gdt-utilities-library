@@ -4,11 +4,11 @@
     <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC FileSystemEntryCollection IMPLEMENTS I_FileSystemEntryCollection 
 VAR
 	entries : ARRAY[0..99] OF I_FileSystemEntry;
-	currentIndex : INT := EMPTY;
+	currentIndex : DINT := EMPTY;
 	_nullEntry : NullEntry(Path:='');
 END_VAR
 VAR CONSTANT
-	EMPTY : INT :=  -1;
+	EMPTY : DINT :=  -1;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
@@ -16,7 +16,7 @@ END_VAR]]></Declaration>
     <Method Name="Clear" Id="{a224ce7d-bcaf-423b-b0e7-f06a8769b3c5}">
       <Declaration><![CDATA[METHOD Clear
 VAR
-	i : INT;
+	i : DINT;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[FOR i := 0 TO currentIndex DO
@@ -40,6 +40,27 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="GetByIndex" Id="{de7e0002-39dc-4df4-b5a5-341c23e5fa35}">
+      <Declaration><![CDATA[METHOD GetByIndex : I_FileSystemEntry
+VAR_INPUT
+	Index : DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (Index < 0) THEN
+	GetByIndex := _nullEntry;
+	RETURN;
+END_IF
+
+IF (Index > currentIndex) THEN
+	GetByIndex := _nullEntry;
+	RETURN;
+END_IF
+
+GetByIndex := entries[currentIndex];
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="GetFirst" Id="{2b71e296-9901-4c08-a631-7758f9f4b506}">
       <Declaration><![CDATA[METHOD GetFirst : I_FileSystemEntry
 ]]></Declaration>
@@ -59,7 +80,7 @@ VAR_INPUT
 	Entry : I_FileSystemEntry;
 END_VAR
 VAR
-	i : INT;
+	i : DINT;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF Count = 0 THEN
@@ -117,6 +138,16 @@ entries[currentIndex] := Entry;
     <LineIds Name="FileSystemEntryCollection.Count.Get">
       <LineId Id="2" Count="0" />
       <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntryCollection.GetByIndex">
+      <LineId Id="7" Count="1" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="12" Count="3" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="18" Count="0" />
     </LineIds>
     <LineIds Name="FileSystemEntryCollection.GetFirst">
       <LineId Id="5" Count="0" />

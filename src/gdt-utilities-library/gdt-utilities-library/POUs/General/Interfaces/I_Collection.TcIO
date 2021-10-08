@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <Itf Name="I_Collection" Id="{9f6303c3-5dbf-423d-a223-eb75585587db}">
-    <Declaration><![CDATA[INTERFACE I_Collection
+    <Declaration><![CDATA[INTERFACE I_Collection EXTENDS __SYSTEM.IQueryInterface 
 ]]></Declaration>
     <Property Name="Count" Id="{e95f9f46-aba8-4a54-9ebb-cdbb7d350f3a}">
       <Declaration><![CDATA[PROPERTY Count : UDINT]]></Declaration>
