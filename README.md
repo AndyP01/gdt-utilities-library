@@ -1,6 +1,21 @@
 # gdt-utilities-library source project
 
-## Disclaimer
+## Description
+This library has been created by members of the AU / UK Graph Development Team to provide miscellaneous helper functions.
+
+## Documentation
+The documentation for this project can be found [here](https://tcgraph-dev-team.github.io/gdt-utilities-library/). 
+
+## TwinCAT Versions
+| Component | Version     |
+| ----------| ----------- |
+| TwinCAT   | 3.1.4024.20 |
+| TcUnit    | 1.2.0.0     |
+
+## Need more help?
+Please visit http://beckhoff.com/ for further guides.
+
+### Disclaimer
 This is a personal guide not a peer reviewed journal or a sponsored publication. We make
 no representations as to accuracy, completeness, correctness, suitability, or validity of any
 information and will not be liable for any errors, omissions, or delays in this information or any
@@ -13,12 +28,3 @@ company. Assumptions made in the analysis are not reflective of the position of 
 other than the author(s) and, since we are critically thinking human beings, these views are
 always subject to change, revision, and rethinking at any time. Please do not hold us to them
 in perpetuity.
-
-## Documentation
-The documentation for this project can be found [here](https://tcgraph-dev-team.github.io/gdt-utilities-library/). 
-
-## Versions
-* TcXaeShell 3.1.4024.20
-
-## Need more help?
-Please visit http://beckhoff.com/ for further guides

@@ -5,7 +5,7 @@
 {attribute 'no_explicit_call' := 'do not call this FB directly'}
 FUNCTION_BLOCK PUBLIC ABSTRACT FileSystemEntry IMPLEMENTS I_FileSystemEntry, I_Disposable
 VAR
-	_path : T_MaxString;	
+	_path : FilePath;	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -26,7 +26,7 @@ END_VAR
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-	Path : T_MaxString;
+	Path : FilePath;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -93,7 +93,10 @@ END_IF
 
 IF (RIGHT(PathToCheck, 1) <> '\') THEN
 	PathCorrection := CONCAT(PathToCheck, '\');
+	RETURN;
 END_IF
+
+PathCorrection := PathToCheck;
 ]]></ST>
       </Implementation>
     </Method>
@@ -127,8 +130,11 @@ END_IF
       <LineId Id="11" Count="0" />
       <LineId Id="16" Count="0" />
       <LineId Id="7" Count="1" />
+      <LineId Id="24" Count="0" />
       <LineId Id="5" Count="0" />
+      <LineId Id="22" Count="0" />
       <LineId Id="17" Count="0" />
+      <LineId Id="23" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

@@ -39,13 +39,16 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FileSystem\- Tests\- Mocks\Mock_FilesystemEntry.TcPOU">
+    <Compile Include="POUs\FileSystem\- Tests\- Mocks\Mock_FileSystemEntry.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FileSystem\- Tests\FileEntry_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FileSystem\- Tests\FileSystemEntry_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FileSystem\- Tests\FileSystemEntryCollection_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FileSystem\- Tests\FileSystem_TestSuite.TcPOU">
@@ -112,6 +115,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\General\Functions\LongStringLen.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\General\Interfaces\I_Collection.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\General\Interfaces\I_Disposable.TcIO">
