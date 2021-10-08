@@ -6,9 +6,9 @@ PROGRAM MAIN
 VAR
 	state : (IDLE, FIND_FILES, GET_FILES, DONE) := IDLE;
 	
+	fileFinder : FileFinder;
 	fileCollection : FileSystemEntryCollection;
-	fileFinder : FileFinder(fileCollection);
-	searchPath : FilePath := 'C:\dev\vision-toolkit\test\integration\';
+	searchPath : FilePath := 'C:\temp\integration\';
 	fileSystemEntry : I_FileSystemEntry;
 	path : FilePath;
 	
@@ -20,34 +20,33 @@ FileSystem_TestSuite();
 
 TcUnit.RUN();
 
-//// find files in supplied initial folder & sub-folders and populate a collection.
-//CASE state OF 
+// find files in supplied initial folder & sub-folders and populate a collection.
+CASE state OF 
 	
-//	IDLE : //
+	IDLE : //
 	
-//	FIND_FILES:
+	FIND_FILES:
 	
-//		IF (fileFinder.Find(searchPath, '*.tcgraph')) THEN
-//			state := GET_FILES;
-			
-//		END_IF
+		IF (fileFinder.Find(searchPath, '*.tcgraph')) THEN
+			state := GET_FILES;
+		END_IF
 	
-//	GET_FILES:
-	
-//		fileSystemEntry := fileCollection.GetFirst();
-//		WHILE (NOT fileSystemEntry.IsNull) DO
+	GET_FILES:
+		fileCollection := fileFinder.GetResults();	
+		fileSystemEntry := fileCollection.GetFirst();
+		WHILE NOT (fileSystemEntry.IsNull) DO
 
-//			path := fileSystemEntry.Path;
-//			fileSystemEntry := fileCollection.GetNext(fileSystemEntry);
+			path := fileSystemEntry.Path;
+			fileSystemEntry := fileCollection.GetNext(fileSystemEntry);
 			
-//		END_WHILE
-//		fileCollection.Clear();
+		END_WHILE
+		//fileCollection.Clear();
 		
-//		state := DONE;
+		state := DONE;
 		
-//	DONE: //
+	DONE: //
 	
-//END_CASE]]></ST>
+END_CASE]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="533" Count="0" />
@@ -62,7 +61,6 @@ TcUnit.RUN();
       <LineId Id="480" Count="0" />
       <LineId Id="483" Count="0" />
       <LineId Id="485" Count="1" />
-      <LineId Id="517" Count="0" />
       <LineId Id="484" Count="0" />
       <LineId Id="488" Count="0" />
       <LineId Id="482" Count="0" />

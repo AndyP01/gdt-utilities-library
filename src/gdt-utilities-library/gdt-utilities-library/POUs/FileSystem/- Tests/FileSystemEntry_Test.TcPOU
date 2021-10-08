@@ -6,6 +6,7 @@ FUNCTION_BLOCK FileSystemEntry_Test EXTENDS TcUnit.FB_TestSuite
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[EmptyPathReturnsExpected();
+SuppliedPathReturnsExpected();
 PathAppendsBackslashIfRequired();
 ]]></ST>
     </Implementation>
@@ -14,15 +15,15 @@ PathAppendsBackslashIfRequired();
 VAR
 	expected : FilePath;
 	actual : FilePath;
-	mockFileSystemEntry : Mock_FilesystemEntry('');
+	mockFileSystemEntry : Mock_FileSystemEntry('');
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('EmptyPathReturnsExpected');
 
 // @TEST-FIXTURE
+expected := '.\';
 
 // @TEST-RUN
-expected := '.\';
 actual := mockFileSystemEntry.Path;
 
 // @TEST-ASSSERT
@@ -37,15 +38,15 @@ TEST_FINISHED();
 VAR
 	expected : FilePath;
 	actual : FilePath;
-	mockFileSystemEntry : Mock_FilesystemEntry('C:\temp');
+	mockFileSystemEntry : Mock_FileSystemEntry('C:\temp');
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('PathAppendsBackslashIfRequired');
 
 // @TEST-FIXTURE
+expected := 'C:\temp\';
 
 // @TEST-RUN
-expected := 'C:\temp\';
 actual := mockFileSystemEntry.Path;
 
 // @TEST-ASSSERT
@@ -55,15 +56,40 @@ TEST_FINISHED();
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="SuppliedPathReturnsExpected" Id="{8c91d1cd-d13d-42a8-a0b6-a7a5188691a2}">
+      <Declaration><![CDATA[METHOD SuppliedPathReturnsExpected
+VAR
+	expected : FilePath;
+	actual : FilePath;
+	mockFileSystemEntry : Mock_FileSystemEntry('C:\TestPath\');
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('SuppliedPathReturnsExpected');
+
+// @TEST-FIXTURE
+expected := 'C:\TestPath\';
+
+// @TEST-RUN
+actual := mockFileSystemEntry.Path;
+
+// @TEST-ASSSERT
+AssertEquals_STRING(Expected := expected, Actual := actual, Message := 'Did not return expected path');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
     <LineIds Name="FileSystemEntry_Test">
       <LineId Id="152" Count="0" />
+      <LineId Id="156" Count="0" />
       <LineId Id="135" Count="0" />
       <LineId Id="153" Count="0" />
     </LineIds>
     <LineIds Name="FileSystemEntry_Test.EmptyPathReturnsExpected">
       <LineId Id="129" Count="0" />
-      <LineId Id="146" Count="3" />
-      <LineId Id="170" Count="0" />
+      <LineId Id="146" Count="2" />
+      <LineId Id="176" Count="0" />
+      <LineId Id="149" Count="0" />
       <LineId Id="151" Count="0" />
       <LineId Id="135" Count="2" />
       <LineId Id="139" Count="0" />
@@ -72,8 +98,20 @@ TEST_FINISHED();
     </LineIds>
     <LineIds Name="FileSystemEntry_Test.PathAppendsBackslashIfRequired">
       <LineId Id="129" Count="0" />
-      <LineId Id="146" Count="3" />
-      <LineId Id="170" Count="0" />
+      <LineId Id="146" Count="2" />
+      <LineId Id="176" Count="0" />
+      <LineId Id="149" Count="0" />
+      <LineId Id="151" Count="0" />
+      <LineId Id="135" Count="2" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntry_Test.SuppliedPathReturnsExpected">
+      <LineId Id="129" Count="0" />
+      <LineId Id="146" Count="2" />
+      <LineId Id="181" Count="0" />
+      <LineId Id="149" Count="0" />
       <LineId Id="151" Count="0" />
       <LineId Id="135" Count="2" />
       <LineId Id="139" Count="0" />

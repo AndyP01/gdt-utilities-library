@@ -1,24 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <Itf Name="I_FileSystemEntryCollection" Id="{2eefa4f4-b620-4403-9654-87d5923b0013}">
-    <Declaration><![CDATA[INTERFACE I_FileSystemEntryCollection EXTENDS __SYSTEM.IQueryInterface
+    <Declaration><![CDATA[INTERFACE I_FileSystemEntryCollection EXTENDS __SYSTEM.IQueryInterface, I_Collection
 ]]></Declaration>
     <Method Name="Clear" Id="{ba765080-6bd7-4248-81cd-65eba6d697a4}">
       <Declaration><![CDATA[METHOD Clear]]></Declaration>
-    </Method>
-    <Property Name="Count" Id="{5aef6b29-2b8f-4753-8e31-025c92e73347}">
-      <Declaration><![CDATA[PROPERTY Count : UDINT
-]]></Declaration>
-      <Get Name="Get" Id="{088f210c-62b8-4f43-8043-dc32b6d04079}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Get>
-    </Property>
-    <Method Name="FB_exit" Id="{ddf9dcf5-11bb-408b-b821-088188d39f5d}">
-      <Declaration><![CDATA[METHOD FB_exit : BOOL
-VAR_INPUT
-	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
-END_VAR
-]]></Declaration>
     </Method>
     <Method Name="GetFirst" Id="{5d1ec355-1838-4d2c-a8c0-71a7c4a8d413}">
       <Declaration><![CDATA[METHOD GetFirst : I_FileSystemEntry

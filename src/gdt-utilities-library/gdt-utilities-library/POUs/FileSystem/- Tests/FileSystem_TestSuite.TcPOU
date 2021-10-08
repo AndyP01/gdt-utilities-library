@@ -8,6 +8,7 @@ VAR
 	nullEntryTest : NullEntry_Test;
 	dirEntryTest : DirectoryEntry_Test;
 	fileEntryTest : FileEntry_Test;
+	fileSystemEntryCollectionTest : FileSystemEntryCollection_Test;
 END_VAR
 ]]></Declaration>
     <Implementation>
