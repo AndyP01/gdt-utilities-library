@@ -4,11 +4,11 @@
     <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC FileSystemEntryCollection IMPLEMENTS I_FileSystemEntryCollection 
 VAR
 	entries : ARRAY[0..99] OF I_FileSystemEntry;
-	currentIndex : DINT := EMPTY;
+	currentIndex : INT := EMPTY;
 	_nullEntry : NullEntry(Path:='');
 END_VAR
 VAR CONSTANT
-	EMPTY : DINT :=  -1;
+	EMPTY : INT :=  -1;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
@@ -16,7 +16,7 @@ END_VAR]]></Declaration>
     <Method Name="Clear" Id="{a224ce7d-bcaf-423b-b0e7-f06a8769b3c5}">
       <Declaration><![CDATA[METHOD Clear
 VAR
-	i : DINT;
+	i : INT;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[FOR i := 0 TO currentIndex DO
@@ -28,7 +28,7 @@ THIS^.currentIndex := EMPTY;
       </Implementation>
     </Method>
     <Property Name="Count" Id="{e59573c1-3063-4ab4-8ae8-0e5af34953b5}">
-      <Declaration><![CDATA[PROPERTY Count : UDINT
+      <Declaration><![CDATA[PROPERTY Count : INT
 ]]></Declaration>
       <Get Name="Get" Id="{3d15a0d4-e7a4-47c2-9929-06234fd411a7}">
         <Declaration><![CDATA[VAR
@@ -43,21 +43,25 @@ END_VAR
     <Method Name="GetByIndex" Id="{de7e0002-39dc-4df4-b5a5-341c23e5fa35}">
       <Declaration><![CDATA[METHOD GetByIndex : I_FileSystemEntry
 VAR_INPUT
-	Index : DINT;
+	Index : INT;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF (Index < 0) THEN
-	GetByIndex := _nullEntry;
+        <ST><![CDATA[GetByIndex := _nullEntry;
+
+IF (Index < 0) OR (Index > 99) THEN
 	RETURN;
 END_IF
 
 IF (Index > currentIndex) THEN
-	GetByIndex := _nullEntry;
 	RETURN;
 END_IF
 
-GetByIndex := entries[currentIndex];
+IF (entries[Index] = 0) THEN
+	RETURN;
+END_IF
+
+GetByIndex := entries[Index];
 ]]></ST>
       </Implementation>
     </Method>
@@ -80,7 +84,7 @@ VAR_INPUT
 	Entry : I_FileSystemEntry;
 END_VAR
 VAR
-	i : DINT;
+	i : INT;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF Count = 0 THEN
@@ -140,11 +144,15 @@ entries[currentIndex] := Entry;
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="FileSystemEntryCollection.GetByIndex">
-      <LineId Id="7" Count="1" />
+      <LineId Id="23" Count="1" />
+      <LineId Id="7" Count="0" />
       <LineId Id="10" Count="0" />
       <LineId Id="9" Count="0" />
-      <LineId Id="12" Count="3" />
+      <LineId Id="12" Count="1" />
+      <LineId Id="15" Count="0" />
       <LineId Id="11" Count="0" />
+      <LineId Id="26" Count="2" />
+      <LineId Id="25" Count="0" />
       <LineId Id="17" Count="0" />
       <LineId Id="16" Count="0" />
       <LineId Id="18" Count="0" />

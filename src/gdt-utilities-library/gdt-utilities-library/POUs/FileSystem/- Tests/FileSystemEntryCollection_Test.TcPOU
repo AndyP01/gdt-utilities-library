@@ -16,8 +16,8 @@ GetNextReturnsExpected();
     <Method Name="CountReturnsExpectedAfterInsert" Id="{78cd8310-e4e5-4401-aee5-e86d1a558e63}">
       <Declaration><![CDATA[METHOD CountReturnsExpectedAfterInsert
 VAR
-	expected : UDINT;
-	actual : UDINT;
+	expected : INT;
+	actual : INT;
 	mockFileSystemEntry : Mock_FilesystemEntry('');
 	collection : FileSystemEntryCollection;
 END_VAR]]></Declaration>
@@ -33,7 +33,7 @@ collection.Insert(mockFileSystemEntry);
 actual := collection.Count;
 
 // @TEST-ASSSERT
-AssertEquals_UDINT(Expected := expected, Actual := actual, Message := 'Count did not return expected');
+AssertEquals_INT(Expected := expected, Actual := actual, Message := 'Count did not return expected');
 
 TEST_FINISHED();
 ]]></ST>
@@ -42,8 +42,8 @@ TEST_FINISHED();
     <Method Name="CountReturnsZeroAfterClear" Id="{e625bb33-48a7-4c4e-95a9-9ba35fc2f5a8}">
       <Declaration><![CDATA[METHOD CountReturnsZeroAfterClear
 VAR
-	expected : UDINT;
-	actual : UDINT;
+	expected : INT;
+	actual : INT;
 	collection : FileSystemEntryCollection;
 END_VAR]]></Declaration>
       <Implementation>
@@ -57,7 +57,92 @@ collection.Clear();
 actual := collection.Count;
 
 // @TEST-ASSSERT
-AssertEquals_UDINT(Expected := expected, Actual := actual, Message := 'Count did not return zero');
+AssertEquals_INT(Expected := expected, Actual := actual, Message := 'Count did not return zero');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetByIndexReturnsExpected" Id="{88c77a78-6131-4253-92a6-9ac95ffbd296}">
+      <Declaration><![CDATA[METHOD GetByIndexReturnsExpected
+VAR
+	collection : FileSystemEntryCollection;
+	mockFileSystemEntry1 : Mock_FilesystemEntry('C:\TestPath_1\');
+	mockFileSystemEntry2 : Mock_FilesystemEntry('C:\TestPath_2\');
+	entry : I_FileSystemEntry;
+	expected : FilePath;
+	actual : FilePath;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('GetByIndexReturnsExpected');
+
+// @TEST-FIXTURE
+expected := 'C:\TestPath_2\';
+
+// @TEST-RUN
+collection.Insert(mockFileSystemEntry1);
+collection.Insert(mockFileSystemEntry2);
+entry := collection.GetByIndex(1);
+
+
+actual := entry.Path;
+
+// @TEST-ASSSERT
+AssertEquals_STRING(Expected := expected, Actual := actual, Message := 'Did not return expected');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetByIndexReturnsNullIfEmpty" Id="{c3de5e3a-10a6-4e78-ab45-5eb4e12732b1}">
+      <Declaration><![CDATA[METHOD GetByIndexReturnsNullIfEmpty
+VAR
+	result : BOOL;
+	collection : FileSystemEntryCollection;
+	entry : I_FileSystemEntry;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('GetByIndexReturnsNullIfEmpty');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+collection.Clear();
+entry := collection.GetByIndex(0);
+result := entry.IsNull;
+
+// @TEST-ASSSERT
+AssertTrue(Condition := result, Message := 'Did not return a null entry');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetByIndexReturnsNullIfIndexOutOfRange" Id="{50318e51-651f-4eed-8cca-fcf06a57fd5d}">
+      <Declaration><![CDATA[METHOD GetByIndexReturnsNullIfIndexOutOfRange
+VAR
+	result1 : BOOL;
+	result2 : BOOL;
+	collection : FileSystemEntryCollection;
+	entry1 : I_FileSystemEntry;
+	entry2 : I_FileSystemEntry;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST('GetByIndexReturnsNullIfIndexOutOfRange');
+
+// @TEST-FIXTURE
+
+// @TEST-RUN
+collection.Clear();
+entry1 := collection.GetByIndex(-1);
+entry2 := collection.GetByIndex(100);
+result1 := entry1.IsNull;
+result2 := entry2.IsNull;
+
+
+// @TEST-ASSSERT
+AssertTrue(Condition := result1, Message := 'Did not return a null entry');
+AssertTrue(Condition := result2, Message := 'Did not return a null entry');
 
 TEST_FINISHED();
 ]]></ST>
@@ -199,6 +284,49 @@ TEST_FINISHED();
       <LineId Id="182" Count="0" />
       <LineId Id="151" Count="0" />
       <LineId Id="135" Count="2" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntryCollection_Test.GetByIndexReturnsExpected">
+      <LineId Id="129" Count="0" />
+      <LineId Id="146" Count="2" />
+      <LineId Id="207" Count="0" />
+      <LineId Id="149" Count="0" />
+      <LineId Id="182" Count="0" />
+      <LineId Id="220" Count="0" />
+      <LineId Id="194" Count="0" />
+      <LineId Id="219" Count="0" />
+      <LineId Id="210" Count="0" />
+      <LineId Id="205" Count="0" />
+      <LineId Id="135" Count="1" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="208" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntryCollection_Test.GetByIndexReturnsNullIfEmpty">
+      <LineId Id="129" Count="0" />
+      <LineId Id="146" Count="3" />
+      <LineId Id="182" Count="0" />
+      <LineId Id="194" Count="0" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="135" Count="2" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="120" Count="0" />
+    </LineIds>
+    <LineIds Name="FileSystemEntryCollection_Test.GetByIndexReturnsNullIfIndexOutOfRange">
+      <LineId Id="129" Count="0" />
+      <LineId Id="146" Count="3" />
+      <LineId Id="182" Count="0" />
+      <LineId Id="194" Count="0" />
+      <LineId Id="213" Count="0" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="215" Count="0" />
+      <LineId Id="212" Count="0" />
+      <LineId Id="135" Count="2" />
+      <LineId Id="216" Count="0" />
       <LineId Id="139" Count="0" />
       <LineId Id="5" Count="0" />
       <LineId Id="120" Count="0" />
