@@ -16,10 +16,10 @@ GetNextReturnsExpected();
     <Method Name="CountReturnsExpectedAfterInsert" Id="{78cd8310-e4e5-4401-aee5-e86d1a558e63}">
       <Declaration><![CDATA[METHOD CountReturnsExpectedAfterInsert
 VAR
+	collection : FileSystemEntryCollection;
+	mockFileSystemEntry : Mock_FilesystemEntry('');
 	expected : INT;
 	actual : INT;
-	mockFileSystemEntry : Mock_FilesystemEntry('');
-	collection : FileSystemEntryCollection;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CountReturnsExpectedAfterInsert');
@@ -42,9 +42,9 @@ TEST_FINISHED();
     <Method Name="CountReturnsZeroAfterClear" Id="{e625bb33-48a7-4c4e-95a9-9ba35fc2f5a8}">
       <Declaration><![CDATA[METHOD CountReturnsZeroAfterClear
 VAR
+	collection : FileSystemEntryCollection;
 	expected : INT;
 	actual : INT;
-	collection : FileSystemEntryCollection;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('CountReturnsZeroAfterClear');
@@ -97,9 +97,9 @@ TEST_FINISHED();
     <Method Name="GetByIndexReturnsNullIfEmpty" Id="{c3de5e3a-10a6-4e78-ab45-5eb4e12732b1}">
       <Declaration><![CDATA[METHOD GetByIndexReturnsNullIfEmpty
 VAR
-	result : BOOL;
 	collection : FileSystemEntryCollection;
 	entry : I_FileSystemEntry;
+	result : BOOL;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('GetByIndexReturnsNullIfEmpty');
@@ -121,11 +121,11 @@ TEST_FINISHED();
     <Method Name="GetByIndexReturnsNullIfIndexOutOfRange" Id="{50318e51-651f-4eed-8cca-fcf06a57fd5d}">
       <Declaration><![CDATA[METHOD GetByIndexReturnsNullIfIndexOutOfRange
 VAR
-	result1 : BOOL;
-	result2 : BOOL;
 	collection : FileSystemEntryCollection;
 	entry1 : I_FileSystemEntry;
 	entry2 : I_FileSystemEntry;
+	result1 : BOOL;
+	result2 : BOOL;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('GetByIndexReturnsNullIfIndexOutOfRange');
@@ -179,9 +179,9 @@ TEST_FINISHED();
     <Method Name="GetFirstReturnsNullIfEmpty" Id="{c8f80720-ad8a-4597-952d-b8ba38004345}">
       <Declaration><![CDATA[METHOD GetFirstReturnsNullIfEmpty
 VAR
-	result : BOOL;
 	collection : FileSystemEntryCollection;
 	entry : I_FileSystemEntry;
+	result : BOOL;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('GetFirstReturnsNullIfEmpty');
@@ -234,9 +234,9 @@ TEST_FINISHED();
     <Method Name="GetNextReturnsNullIfEmpty" Id="{7a3fe986-d18b-46ab-943f-d09713213fa5}">
       <Declaration><![CDATA[METHOD GetNextReturnsNullIfEmpty
 VAR
-	result : BOOL;
 	collection : FileSystemEntryCollection;
 	entry : I_FileSystemEntry;
+	result : BOOL;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[TEST('GetNextReturnsNullIfEmpty');

@@ -4,15 +4,16 @@
     <Declaration><![CDATA[{attribute 'hide'}
 PROGRAM MAIN
 VAR
-	state : (IDLE, FIND_FILES, GET_FILES, DONE) := IDLE;
-	
+	state : (IDLE, FIND_FILES, USE_FILES, CLEANUP, DONE) := IDLE;
 	fileFinder : FileFinder;
 	fileCollection : FileSystemEntryCollection;
 	searchPath : FilePath := 'C:\temp\integration\';
 	fileSystemEntry : I_FileSystemEntry;
 	disposable : I_Disposable;
 	path : FilePath;
-	index : DINT;
+	append : BOOL;
+	index : INT;
+	check : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -27,35 +28,26 @@ CASE state OF
 	IDLE : //
 	
 	FIND_FILES:
-	
-		IF (fileFinder.Find(searchPath, '*.tcgraph')) THEN
-			state := GET_FILES;
+		IF (fileFinder.Find(searchPath, '*.tcgraph', fileCollection, append)) THEN
+			state := USE_FILES;
 		END_IF
 	
-	GET_FILES:
-		fileCollection := fileFinder.GetResults();	
-		fileSystemEntry := fileCollection.GetFirst();
-		WHILE NOT (fileSystemEntry.IsNull) DO
-
-			path := fileSystemEntry.Path;
-			fileSystemEntry := fileCollection.GetNext(fileSystemEntry);
-			
-		END_WHILE
-		//fileCollection.Clear();
+	USE_FILES:
+		state := CLEANUP;
 		
-		FOR index := 0 TO fileCollection.Count - 1 DO
-			fileSystemEntry := fileCollection.GetByIndex(index);
-//			IF __QUERYINTERFACE(fileSystemEntry, disposable) THEN
-//				disposable.Dispose();
-//			END_IF
-		END_FOR
-		
+	CLEANUP:
 		state := DONE;
 		
-	DONE: //
+	DONE:
+		;
 			
-	
-END_CASE]]></ST>
+END_CASE
+
+IF check THEN
+	check := FALSE;
+	path := fileCollection.GetByIndex(26).Path;
+END_IF
+]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="533" Count="0" />
@@ -68,29 +60,23 @@ END_CASE]]></ST>
       <LineId Id="478" Count="0" />
       <LineId Id="489" Count="0" />
       <LineId Id="480" Count="0" />
-      <LineId Id="483" Count="0" />
       <LineId Id="485" Count="1" />
       <LineId Id="484" Count="0" />
       <LineId Id="488" Count="0" />
       <LineId Id="482" Count="0" />
-      <LineId Id="500" Count="0" />
-      <LineId Id="518" Count="0" />
-      <LineId Id="493" Count="0" />
-      <LineId Id="495" Count="0" />
-      <LineId Id="498" Count="0" />
-      <LineId Id="519" Count="1" />
-      <LineId Id="499" Count="0" />
-      <LineId Id="491" Count="0" />
-      <LineId Id="501" Count="0" />
-      <LineId Id="576" Count="1" />
-      <LineId Id="581" Count="1" />
-      <LineId Id="580" Count="0" />
-      <LineId Id="578" Count="1" />
       <LineId Id="502" Count="1" />
       <LineId Id="492" Count="0" />
-      <LineId Id="552" Count="0" />
-      <LineId Id="504" Count="0" />
+      <LineId Id="647" Count="0" />
+      <LineId Id="644" Count="1" />
+      <LineId Id="662" Count="0" />
+      <LineId Id="648" Count="0" />
       <LineId Id="311" Count="0" />
+      <LineId Id="666" Count="0" />
+      <LineId Id="594" Count="0" />
+      <LineId Id="667" Count="0" />
+      <LineId Id="683" Count="0" />
+      <LineId Id="668" Count="0" />
+      <LineId Id="596" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
