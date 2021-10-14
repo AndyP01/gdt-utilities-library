@@ -5,14 +5,12 @@
 {attribute 'no_explicit_call' := 'do not call this FB directly'}
 FUNCTION_BLOCK PUBLIC FileFinder IMPLEMENTS I_FileFinder
 VAR
-	referencedFileCollection : I_FileSystemEntryCollection;
+	referencedCollection : I_FileSystemEntryCollection;
 	status : (INIT, FIRST_READ, NEXT_READ, WAITING_FOR_NOT_BUSY, CHECK_EOE, PROCESS_FOUND_ENTRY, FOUND_DIRECTORY, FOUND_FILE, FINISHED) := INIT;
 	searchDir: FilePath;
 	searchString : T_MaxString;
 	fileExt : FileExtension;
 	fbFindFileEntry : FB_EnumFindFileEntry;
-	fileEntryPointers : ARRAY [0..99] OF POINTER TO FileEntry;
-	pointerIndex : INT;
 	recursiveFileFinder : POINTER TO FileFinder;
 END_VAR
 ]]></Declaration>
@@ -27,34 +25,19 @@ VAR_INPUT
 	FileEntryData : ST_FindFileEntry;
 END_VAR
 VAR
-	fileEntry : POINTER TO FileEntry;
+	pFileEntry : POINTER TO FileEntry;
+	fileEntry : I_FileSystemEntry;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[fileEntry := __NEW(FileEntry(Path:=FilePath, Name:=FileEntryData.sFileName));
-THIS^.referencedFileCollection.Insert(fileEntry^);
+        <ST><![CDATA[pFileEntry := __NEW(FileEntry(Path:=FilePath, Name:=FileEntryData.sFileName));
 
-fileEntryPointers[pointerIndex] := fileEntry;
-pointerIndex := pointerIndex + 1;
+fileEntry := pFileEntry^;
 
-ADSLOGSTR(ADSLOG_MSGTYPE_STRING, 'File added to collection: %s', fileEntry^.GetFullPath());
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="ClearResults" Id="{371ae0e5-bfe1-4064-b67e-d6ba127fbabb}" FolderPath="Private\">
-      <Declaration><![CDATA[METHOD PRIVATE ClearResults
-VAR
-	i : INT;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[ADSLOGSTR(ADSLOG_MSGTYPE_STRING, 'Clearing pointers %s', '');
+THIS^.referencedCollection.Insert(fileEntry);
 
-FOR i := 0 TO 99 DO
-	IF (fileEntryPointers[i] <> 0) THEN
-		__DELETE(fileEntryPointers[i]);
-	END_IF
-END_FOR
+ADSLOGSTR(ADSLOG_MSGTYPE_STRING, 'File added to collection: %s', pFileEntry^.GetFullPath());
 
-pointerIndex := 0;
+__DELETE(pFileEntry);
 ]]></ST>
       </Implementation>
     </Method>
@@ -68,8 +51,6 @@ END_VAR
         <ST><![CDATA[IF recursiveFileFinder <> 0 THEN
 	__DELETE(recursiveFileFinder);
 END_IF
-
-ClearResults();
 ]]></ST>
       </Implementation>
     </Method>
@@ -79,7 +60,6 @@ VAR_INPUT
 	SearchDirectory : FilePath;
 	FileExtension : FileExtension;
 	Collection : I_FileSystemEntryCollection;
-	Append : BOOL;
 END_VAR
 VAR
 	newSearchDir : FilePath;
@@ -92,12 +72,7 @@ END_VAR
 	
 	INIT:
 		
-		THIS^.referencedFileCollection := Collection;
-		
-		IF NOT Append THEN
-			THIS^.referencedFileCollection.Clear();
-			ClearResults();
-		END_IF
+		THIS^.referencedCollection := Collection;
 		
 		searchDir := SearchDirectory;
 		fileExt := FileExtension;
@@ -163,7 +138,7 @@ END_VAR
 			newSearchDir := CONCAT(newSearchDir, '\');
 		END_IF
 
-		IF (recursiveFileFinder^.Find(newSearchDir, fileExt, THIS^.referencedFileCollection, TRUE)) THEN // find files in sub-directory and append to referenced collection.
+		IF (recursiveFileFinder^.Find(newSearchDir, fileExt, THIS^.referencedCollection)) THEN // find files in sub-directory and append to referenced collection.
 			__DELETE(recursiveFileFinder);
 			status := NEXT_READ;
 		END_IF
@@ -225,39 +200,26 @@ IsMatchingFileExtension := (extension1 = extension2);
     </LineIds>
     <LineIds Name="FileFinder.AddNewFileEntryToCollection">
       <LineId Id="5" Count="0" />
-      <LineId Id="33" Count="0" />
-      <LineId Id="45" Count="0" />
-      <LineId Id="43" Count="1" />
-      <LineId Id="46" Count="0" />
-      <LineId Id="42" Count="0" />
-      <LineId Id="25" Count="0" />
-    </LineIds>
-    <LineIds Name="FileFinder.ClearResults">
-      <LineId Id="50" Count="0" />
-      <LineId Id="59" Count="0" />
-      <LineId Id="46" Count="0" />
-      <LineId Id="54" Count="2" />
-      <LineId Id="44" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="54" Count="0" />
       <LineId Id="57" Count="0" />
-      <LineId Id="49" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="59" Count="0" />
       <LineId Id="58" Count="0" />
+      <LineId Id="25" Count="0" />
     </LineIds>
     <LineIds Name="FileFinder.FB_exit">
       <LineId Id="14" Count="0" />
       <LineId Id="17" Count="0" />
       <LineId Id="16" Count="0" />
-      <LineId Id="22" Count="0" />
-      <LineId Id="12" Count="0" />
       <LineId Id="23" Count="0" />
     </LineIds>
     <LineIds Name="FileFinder.Find">
       <LineId Id="1032" Count="2" />
       <LineId Id="1241" Count="0" />
       <LineId Id="1293" Count="1" />
-      <LineId Id="1290" Count="1" />
-      <LineId Id="1295" Count="0" />
-      <LineId Id="1292" Count="0" />
-      <LineId Id="1243" Count="0" />
       <LineId Id="1035" Count="51" />
       <LineId Id="1184" Count="0" />
       <LineId Id="1087" Count="11" />

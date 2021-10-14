@@ -4,14 +4,14 @@
     <Declaration><![CDATA[{attribute 'hide'}
 PROGRAM MAIN
 VAR
-	state : (IDLE, FIND_FILES, USE_FILES, CLEANUP, DONE) := IDLE;
+	state : (IDLE, CLEAR, FIND_FILES, USE_FILES, CLEANUP, DONE) := IDLE;
 	fileFinder : FileFinder;
 	fileCollection : FileSystemEntryCollection;
 	searchPath : FilePath := 'C:\temp\integration\';
 	fileSystemEntry : I_FileSystemEntry;
+	file : I_FileEntry;
 	disposable : I_Disposable;
 	path : FilePath;
-	append : BOOL;
 	index : INT;
 	check : BOOL;
 END_VAR
@@ -25,10 +25,15 @@ TcUnit.RUN();
 // find files in supplied initial folder & sub-folders and populate a collection.
 CASE state OF 
 	
-	IDLE : //
-	
+	IDLE :
+		;
+		
+	CLEAR :
+		fileCollection.Clear();
+		state := FIND_FILES;
+		
 	FIND_FILES:
-		IF (fileFinder.Find(searchPath, '*.tcgraph', fileCollection, append)) THEN
+		IF (fileFinder.Find(searchPath, '*.tcgraph', fileCollection)) THEN
 			state := USE_FILES;
 		END_IF
 	
@@ -45,7 +50,10 @@ END_CASE
 
 IF check THEN
 	check := FALSE;
-	path := fileCollection.GetByIndex(26).Path;
+	fileSystemEntry := fileCollection.GetByIndex(26);
+	IF __QUERYINTERFACE(fileSystemEntry, file) THEN
+		path := file.Path;
+	END_IF
 END_IF
 ]]></ST>
     </Implementation>
@@ -58,7 +66,11 @@ END_IF
       <LineId Id="476" Count="0" />
       <LineId Id="490" Count="0" />
       <LineId Id="478" Count="0" />
+      <LineId Id="700" Count="1" />
       <LineId Id="489" Count="0" />
+      <LineId Id="702" Count="0" />
+      <LineId Id="704" Count="0" />
+      <LineId Id="703" Count="0" />
       <LineId Id="480" Count="0" />
       <LineId Id="485" Count="1" />
       <LineId Id="484" Count="0" />
@@ -74,7 +86,8 @@ END_IF
       <LineId Id="666" Count="0" />
       <LineId Id="594" Count="0" />
       <LineId Id="667" Count="0" />
-      <LineId Id="683" Count="0" />
+      <LineId Id="716" Count="0" />
+      <LineId Id="712" Count="2" />
       <LineId Id="668" Count="0" />
       <LineId Id="596" Count="0" />
     </LineIds>

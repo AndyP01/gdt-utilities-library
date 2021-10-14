@@ -9,7 +9,6 @@ VAR_INPUT
 	SearchDirectory : FilePath;
 	FileExtension : FileExtension;
 	Collection : I_FileSystemEntryCollection;
-	Append : BOOL;
 END_VAR
 ]]></Declaration>
     </Method>
