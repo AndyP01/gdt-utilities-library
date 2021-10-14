@@ -9,7 +9,7 @@
     <Method Name="GetByIndex" Id="{fcdb0399-2517-4f0c-ad4c-26993eff6e6c}">
       <Declaration><![CDATA[METHOD GetByIndex : I_FileSystemEntry
 VAR_INPUT
-	Index : DINT;
+	Index : INT;
 END_VAR
 ]]></Declaration>
     </Method>

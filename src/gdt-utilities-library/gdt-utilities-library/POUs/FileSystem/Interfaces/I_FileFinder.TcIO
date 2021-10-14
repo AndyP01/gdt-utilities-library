@@ -8,11 +8,8 @@
 VAR_INPUT
 	SearchDirectory : FilePath;
 	FileExtension : FileExtension;
+	Collection : I_FileSystemEntryCollection;
 END_VAR
-]]></Declaration>
-    </Method>
-    <Method Name="GetResults" Id="{2a0cda91-9e0b-4fa1-b8e6-acda8ce859b1}">
-      <Declaration><![CDATA[METHOD GetResults : FileSystemEntryCollection
 ]]></Declaration>
     </Method>
   </Itf>

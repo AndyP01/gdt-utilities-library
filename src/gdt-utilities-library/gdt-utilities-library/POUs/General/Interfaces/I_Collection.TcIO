@@ -4,7 +4,7 @@
     <Declaration><![CDATA[INTERFACE I_Collection EXTENDS __SYSTEM.IQueryInterface 
 ]]></Declaration>
     <Property Name="Count" Id="{e95f9f46-aba8-4a54-9ebb-cdbb7d350f3a}">
-      <Declaration><![CDATA[PROPERTY Count : UDINT]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Count : INT]]></Declaration>
       <Get Name="Get" Id="{7f219083-c12f-4dd0-a221-110fdeaca3ab}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
