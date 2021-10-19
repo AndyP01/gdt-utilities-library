@@ -9,7 +9,7 @@ The documentation for this project can be found [here](https://tcgraph-dev-team.
 ## TwinCAT Versions
 | Component | Version     |
 | ----------| ----------- |
-| TwinCAT   | 3.1.4024.20 |
+| TwinCAT   | 3.1.4024.22 |
 | TcUnit    | 1.2.0.0     |
 
 ## Need more help?
