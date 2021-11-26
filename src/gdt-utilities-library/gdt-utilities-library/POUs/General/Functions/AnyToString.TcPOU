@@ -63,7 +63,7 @@ ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_REAL) THEN
 	
 ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_LREAL) THEN
     pAnyLREAL := Value.pValue; 
-    AnyToString  := LREAL_TO_STRING(pAnyLREAL^);
+    AnyToString  := F_ToUCase(LREAL_TO_STRING(pAnyLREAL^));
 	
 ELSIF (Value.TypeClass = __SYSTEM.TYPE_CLASS.TYPE_USINT) THEN
     pAnyUSINT := Value.pValue; 
